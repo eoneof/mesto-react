@@ -76,7 +76,7 @@ function App() {
               title='Закрыть'>
               Закрыть
             </button>
-            <form novalidate id='form-edit' name='form-edit' className='form'>
+            <form noValidate id='form-edit' name='form-edit' className='form'>
               <h2 className='form__header'>Редактировать профиль</h2>
               <fieldset className='form__fieldset'>
                 <div className='form__input-container'>
@@ -85,8 +85,8 @@ function App() {
                     id='nameInput'
                     name='name'
                     type='text'
-                    minlength='2'
-                    maxlength='40'
+                    minLength='2'
+                    maxLength='40'
                     placeholder='Как вас зовут?'
                     required
                   />
@@ -98,8 +98,8 @@ function App() {
                     id='aboutInput'
                     name='about'
                     type='text'
-                    minlength='2'
-                    maxlength='200'
+                    minLength='2'
+                    maxLength='200'
                     placeholder='Напишите что-нибудь о себе'
                     required
                   />
@@ -128,7 +128,7 @@ function App() {
               title='Закрыть'>
               Закрыть
             </button>
-            <form novalidate id='form-update' name='form-update' className='form'>
+            <form noValidate id='form-update' name='form-update' className='form'>
               <h2 className='form__header'>Обновить аватар</h2>
               <fieldset className='form__fieldset'>
                 <div className='form__input-container'>
@@ -165,7 +165,7 @@ function App() {
               title='Закрыть'>
               Закрыть
             </button>
-            <form novalidate id='form-add' name='form-add' className='form'>
+            <form noValidate id='form-add' name='form-add' className='form'>
               <h2 className='form__header'>Новое место</h2>
               <fieldset className='form__fieldset'>
                 <div className='form__input-container'>
@@ -174,8 +174,8 @@ function App() {
                     id='photoNameInput'
                     name='name'
                     type='text'
-                    minlength='2'
-                    maxlength='30'
+                    minLength='2'
+                    maxLength='30'
                     placeholder='Название'
                     required
                   />
