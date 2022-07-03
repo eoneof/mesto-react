@@ -10,7 +10,8 @@ function App() {
         <div className='divider'></div>
 
         {/* <!-- PRELOADER --> */}
-        <div className='preloader'>
+        {/* TODO remove hidden */}
+        <div className='preloader hidden'>
           <div className='spinner'></div>
         </div>
 
