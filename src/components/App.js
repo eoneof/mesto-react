@@ -1,3 +1,5 @@
+import avatarPlaceHolderImage from '../images/avatar-placeholder.svg';
+
 function App() {
   return (
     <>
@@ -29,7 +31,7 @@ function App() {
                 <img
                   className='profile__photo'
                   alt='Фотография пользователя.'
-                  src="<%=require('./images/avatar-placeholder.svg')%>"
+                  src={avatarPlaceHolderImage}
                 />
               </div>
               <div className='profile__main'>
