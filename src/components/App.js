@@ -2,6 +2,10 @@ import avatarPlaceHolderImage from '../images/avatar-placeholder.svg';
 const userName = 'Имя Пользователя';
 const userAbout = 'Описание';
 
+// TODO move to footer
+const date = new Date()
+const currentYear = date.getFullYear()
+
 function App() {
   return (
     <>
