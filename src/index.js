@@ -4,7 +4,7 @@ import './index.css';
 import App from './components/App.js';
 import reportWebVitals from './reportWebVitals';
 
-const root = ReactDOM.createRoot(document.querySelector('.root'));
+const root = ReactDOM.createRoot(document.getElementById('mesto-react-app'));
 root.render(
   <React.StrictMode>
     <App />
