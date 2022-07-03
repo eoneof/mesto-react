@@ -3,8 +3,6 @@
 function PopupWithForm() {
   return (
     <>
-      {/* <!-- POPUPS --> */}
-
       {/* <!-- EDIT PROFILE --> */}
       <section className='popup popup_type_edit'>
         <div className='popup__container'>

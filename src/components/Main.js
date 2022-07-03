@@ -3,9 +3,22 @@ const userName = 'Имя Пользователя';
 const userAbout = 'Описание';
 
 function Main() {
+  function handleEditAvatarClick() {
+    // TODO go declarative
+    document.querySelector('.popup_type_update').classList.add('popup_opened');
+    console.log('popupUpdate');
+  }
+  function handleEditProfileClick() {
+    document.querySelector('.popup_type_edit').classList.add('popup_opened');
+    console.log('popupEdit');
+  }
+  function handleAddPlaceClick() {
+    document.querySelector('.popup_type_add').classList.add('popup_opened');
+    console.log('popupAdd');
+  }
+
   return (
     <>
-      {/* <!-- MAIN --> */}
       {/* <!-- TODO add `hidden` class (or should I?)--> */}
       <main className='main'>
         {/* <!-- PROFILE --> */}
@@ -16,7 +29,9 @@ function Main() {
               type='button'
               name='update-profile-photo-button'
               title='Изменить фотографию профиля'>
-              <button className='profile__photo-overlay'></button>
+              <button
+                className='profile__photo-overlay'
+                onClick={handleEditAvatarClick}></button>
               <img
                 className='profile__photo'
                 alt='Фотография пользователя.'
@@ -31,7 +46,8 @@ function Main() {
                     className='button profile__edit-button'
                     type='button'
                     name='edit-button'
-                    title='Редактировать профиль'></button>
+                    title='Редактировать профиль'
+                    onClick={handleEditProfileClick}></button>
                 </div>
                 <p className='profile__about'>{userAbout}</p>
               </div>
@@ -41,7 +57,8 @@ function Main() {
             className='button profile__add-button'
             type='button'
             name='add-button'
-            title='Добавить фотографии'></button>
+            title='Добавить фотографии'
+            onClick={handleAddPlaceClick}></button>
         </section>
 
         {/* <!-- PHOTOS --> */}
