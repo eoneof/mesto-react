@@ -1,4 +1,6 @@
 import avatarPlaceHolderImage from '../images/avatar-placeholder.svg';
+const userName = 'Имя Пользователя';
+const userAbout = 'Описание';
 
 function App() {
   return (
@@ -37,14 +39,14 @@ function App() {
               <div className='profile__main'>
                 <div className='profile__headings'>
                   <div className='profile__header'>
-                    <h1 className='profile__name'></h1>
+                    <h1 className='profile__name'>{userName}</h1>
                     <button
                       className='button profile__edit-button'
                       type='button'
                       name='edit-button'
                       title='Редактировать профиль'></button>
                   </div>
-                  <p className='profile__about'></p>
+                  <p className='profile__about'>{userAbout}</p>
                 </div>
               </div>
             </div>
