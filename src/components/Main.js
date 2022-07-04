@@ -1,22 +1,13 @@
+import React from 'react';
+
+import * as consts from '../utils/constants.js';
+
 import avatarPlaceHolderImage from '../images/avatar-placeholder.svg';
+import PopupWithForm from './PopupWithForm';
 const userName = 'Имя Пользователя';
 const userAbout = 'Описание';
 
-function Main() {
-  function handleEditAvatarClick() {
-    // TODO go declarative
-    document.querySelector('.popup_type_update').classList.add('popup_opened');
-    console.log('popupUpdate');
-  }
-  function handleEditProfileClick() {
-    document.querySelector('.popup_type_edit').classList.add('popup_opened');
-    console.log('popupEdit');
-  }
-  function handleAddPlaceClick() {
-    document.querySelector('.popup_type_add').classList.add('popup_opened');
-    console.log('popupAdd');
-  }
-
+function Main({ onUpdateAvatar, onEditProfile, onAddCard, onCardClick }) {
   return (
     <>
       {/* <!-- TODO add `hidden` class (or should I?)--> */}
@@ -31,7 +22,7 @@ function Main() {
               title='Изменить фотографию профиля'>
               <button
                 className='profile__photo-overlay'
-                onClick={handleEditAvatarClick}></button>
+                onClick={onUpdateAvatar}></button>
               <img
                 className='profile__photo'
                 alt='Фотография пользователя.'
@@ -47,7 +38,7 @@ function Main() {
                     type='button'
                     name='edit-button'
                     title='Редактировать профиль'
-                    onClick={handleEditProfileClick}></button>
+                    onClick={onEditProfile}></button>
                 </div>
                 <p className='profile__about'>{userAbout}</p>
               </div>
@@ -58,7 +49,7 @@ function Main() {
             type='button'
             name='add-button'
             title='Добавить фотографии'
-            onClick={handleAddPlaceClick}></button>
+            onClick={onAddCard}></button>
         </section>
 
         {/* <!-- PHOTOS --> */}

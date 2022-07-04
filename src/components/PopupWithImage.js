@@ -2,7 +2,9 @@ function PopupWithImage() {
   return (
     <>
       {/* <!-- PREVIEW PHOTO --> */}
-      <section className='popup popup_type_preview' aria-label='Превью фотографии'>
+      <section
+        className='popup popup_type_preview'
+        aria-label='Превью фотографии'>
         <div className='popup__container'>
           <button
             className='button popup__close-button'
