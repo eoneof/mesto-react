@@ -1,6 +1,6 @@
 import React from 'react';
 
-import * as consts from '../utils/constants.js';
+// import * as consts from '../utils/constants.js';
 
 import avatarPlaceHolderImage from '../images/avatar-placeholder.svg';
 import PopupWithForm from './PopupWithForm';

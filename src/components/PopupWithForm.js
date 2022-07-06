@@ -2,40 +2,52 @@ import React from 'react';
 
 // TODO remove redundant
 
-function PopupWithForm({
-  formTitle,
-  formName,
-  children,
-  buttonText,
-  isOpen,
-  onPopupClose,
-}) {
+function PopupWithForm(props) {
+  // retain css transition effect
+  const [openedClassName, setOpenedClassName] = React.useState('');
+
+  // on mount / dismount
+  React.useEffect(() => {
+    if (props.isOpen) {
+      setOpenedClassName('popup_opened');
+    }
+
+    // FIXME closing transition is missing
+    return () => {
+      setOpenedClassName('');
+    };
+  }, [props.isOpen]);
+
+  // keep it closed
+  if (!props.isOpen) {
+    return null;
+  }
+
   return (
     <>
-      <section className={`popup ${isOpen ? 'popup_opened' : ''}`}>
-        {children}
+      <section className={`popup ${openedClassName}`}>
         <div className='popup__container'>
           <button
             className='button popup__close-button'
             type='button'
             name='close-button'
-            title={buttonText}
-            onClick={onPopupClose}>
-            {buttonText}
+            title={props.buttonText}
+            onClick={props.onPopupClose}>
+            {props.buttonText}
           </button>
-          <form noValidate id={formName} name={formName} className='form'>
-            <h2 className='form__header'>{formTitle}</h2>
-            <fieldset className='form__fieldset'>{children}</fieldset>
+          <form noValidate id={props.formName} name={props.formName} className='form'>
+            <h2 className='form__header'>{props.formTitle}</h2>
+            <fieldset className='form__fieldset'>{props.children}</fieldset>
             <button
               className='button form__submit-button'
-              form={formName}
+              form={props.formName}
               type='submit'
               name='submit-button'>
               Сохранить
             </button>
           </form>
         </div>
-        <div className='popup__backdrop' onClick={onPopupClose}></div>
+        <div className='popup__backdrop' onClick={props.onPopupClose}></div>
       </section>
     </>
   );

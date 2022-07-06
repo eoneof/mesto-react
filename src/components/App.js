@@ -61,10 +61,9 @@ function App() {
       />
 
       <Footer />
-      {/* FIXME input containers shift backdrops as they are rendered the wrong node (where?) */}
       <PopupWithForm
-        formTitle='Редактировать профиль' /* TODO get from external */
-        formName='form-edit' /* TODO get from external */
+        formTitle='Редактировать профиль'
+        formName='form-edit'
         isOpen={isEditPopupOpen}
         buttonText='Сохранить'
         onPopupClose={handleCloseButton}
@@ -135,8 +134,8 @@ function App() {
       </PopupWithForm>
 
       <PopupWithForm
-        formTitle='Обновить аватар' /* TODO get from external */
-        formName='form-update' /* TODO get from external */
+        formTitle='Обновить аватар'
+        formName='form-update'
         buttonText='Сохранить'
         isOpen={isUpdatePopupOpen}
         onPopupClose={handleCloseButton}>
@@ -154,7 +153,12 @@ function App() {
           </div>
         </>
       </PopupWithForm>
-      <PopupWithImage />
+      <PopupWithImage
+        isOpen={isPreviewPopupOpen}
+        onPopupClose={handleCloseButton}
+        caption={'sdfasdfsadfas'}
+        src={'asdasdasdas'}
+      />
       <Card />
     </div>
   );
