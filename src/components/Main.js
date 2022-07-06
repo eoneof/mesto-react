@@ -1,11 +1,15 @@
+import React from 'react';
+
+// import * as consts from '../utils/constants.js';
+
 import avatarPlaceHolderImage from '../images/avatar-placeholder.svg';
+import PopupWithForm from './PopupWithForm';
 const userName = 'Имя Пользователя';
 const userAbout = 'Описание';
 
-function Main() {
+function Main({ onUpdateAvatar, onEditProfile, onAddCard, onCardClick }) {
   return (
     <>
-      {/* <!-- MAIN --> */}
       {/* <!-- TODO add `hidden` class (or should I?)--> */}
       <main className='main'>
         {/* <!-- PROFILE --> */}
@@ -16,7 +20,9 @@ function Main() {
               type='button'
               name='update-profile-photo-button'
               title='Изменить фотографию профиля'>
-              <button className='profile__photo-overlay'></button>
+              <button
+                className='profile__photo-overlay'
+                onClick={onUpdateAvatar}></button>
               <img
                 className='profile__photo'
                 alt='Фотография пользователя.'
@@ -31,7 +37,8 @@ function Main() {
                     className='button profile__edit-button'
                     type='button'
                     name='edit-button'
-                    title='Редактировать профиль'></button>
+                    title='Редактировать профиль'
+                    onClick={onEditProfile}></button>
                 </div>
                 <p className='profile__about'>{userAbout}</p>
               </div>
@@ -41,7 +48,8 @@ function Main() {
             className='button profile__add-button'
             type='button'
             name='add-button'
-            title='Добавить фотографии'></button>
+            title='Добавить фотографии'
+            onClick={onAddCard}></button>
         </section>
 
         {/* <!-- PHOTOS --> */}

@@ -18,7 +18,7 @@
   "vueIndentScriptAndStyle": false,
   "overrides": [
     {
-      "files": "*.js|*.jsx",
+      "files": ["*.js", "*.jsx"],
       "options": {
         "printWidth": 80,
         "singleQuote": true,

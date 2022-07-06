@@ -31,7 +31,17 @@ module.exports = {
   ],
 
   // Scope that has been changed
-  scopes: [{ name: 'config' }],
+  scopes: [
+    { name: 'index' },
+    { name: 'App' },
+    { name: 'Main' },
+    { name: 'Popup' },
+    { name: 'Card' },
+    { name: 'Api' },
+    { name: 'Constants' },
+    { name: 'Utils' },
+    { name: 'config' },
+  ],
 
   /*
   scopeOverrides: {
