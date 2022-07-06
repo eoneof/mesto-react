@@ -1,13 +1,33 @@
 import React from 'react';
 
-// import * as consts from '../utils/constants.js';
+import Api from '../utils/Api.js';
+import * as utils from '../utils/utils.js';
+import * as consts from '../utils/constants.js';
 
 import avatarPlaceHolderImage from '../images/avatar-placeholder.svg';
-import PopupWithForm from './PopupWithForm';
-const userName = 'Имя Пользователя';
-const userAbout = 'Описание';
-
 function Main({ onUpdateAvatar, onEditProfile, onAddCard, onCardClick }) {
+  const api = new Api(consts.apiConfig);
+
+  const [userName, setUserName] = React.useState('Имя Пользователя');
+  const [userDescription, setUserDescription] = React.useState('Описание');
+  const [userAvatar, setUserAvatar] = React.useState(avatarPlaceHolderImage);
+
+  function getAllData() {
+    Promise.all([api.getUser(), api.getAllCards()])
+      .then(([remoteUserData, remoteCardsData]) => {
+        setUserName(remoteUserData.name);
+        setUserDescription(remoteUserData.about);
+        setUserAvatar(remoteUserData.avatar);
+      })
+      .catch((err) => {
+        utils.requestErrorHandler(err);
+      });
+  }
+
+  React.useEffect(() => {
+    getAllData();
+  });
+
   return (
     <>
       {/* <!-- TODO add `hidden` class (or should I?)--> */}
@@ -26,7 +46,7 @@ function Main({ onUpdateAvatar, onEditProfile, onAddCard, onCardClick }) {
               <img
                 className='profile__photo'
                 alt='Фотография пользователя.'
-                src={avatarPlaceHolderImage}
+                src={userAvatar}
               />
             </div>
             <div className='profile__main'>
@@ -40,7 +60,7 @@ function Main({ onUpdateAvatar, onEditProfile, onAddCard, onCardClick }) {
                     title='Редактировать профиль'
                     onClick={onEditProfile}></button>
                 </div>
-                <p className='profile__about'>{userAbout}</p>
+                <p className='profile__about'>{userDescription}</p>
               </div>
             </div>
           </div>
