@@ -16,7 +16,7 @@ function App() {
   const [isPreviewPopupOpen, setIsPreviewPopupOpen] = React.useState(false);
   const [isConfirmPopupOpen, setIsConfirmPopupOpen] = React.useState(false);
 
-  function handleCloseButton() {
+  function closeAllPopups() {
     setIsUpdatePopupOpen(false);
     setIsEditPopupOpen(false);
     setIsAddPopoupOpen(false);
@@ -64,10 +64,10 @@ function App() {
       <Footer />
       <PopupWithForm
         formTitle='Редактировать профиль'
-        formName='form-edit'
+        formName='edit'
         isOpen={isEditPopupOpen}
         submitButtonText='Сохранить'
-        onPopupClose={handleCloseButton}
+        onPopupClose={closeAllPopups}
         /* onEscape={handleEscClose} */
       >
         <>
@@ -102,10 +102,10 @@ function App() {
 
       <PopupWithForm
         formTitle='Новое место'
-        formName='form-add'
+        formName='add'
         submitButtonText='Сохранить'
         isOpen={isAddPopupOpen}
-        onPopupClose={handleCloseButton}>
+        onPopupClose={closeAllPopups}>
         <>
           <fieldset className='form__fieldset'>
             <div className='form__input-container'>
@@ -140,10 +140,10 @@ function App() {
 
       <PopupWithForm
         formTitle='Обновить аватар'
-        formName='form-update'
+        formName='update'
         submitButtonText='Сохранить'
         isOpen={isUpdatePopupOpen}
-        onPopupClose={handleCloseButton}>
+        onPopupClose={closeAllPopups}>
         <>
           <fieldset className='form__fieldset'>
             <div className='form__input-container'>
@@ -165,12 +165,12 @@ function App() {
         formTitle='Вы уверены?'
         submitButtonText='Да'
         isOpen={isConfirmPopupOpen}
-        onPopupClose={handleCloseButton}
+        onPopupClose={closeAllPopups}
       />
 
       <PopupWithImage
         isOpen={isPreviewPopupOpen}
-        onPopupClose={handleCloseButton}
+        onPopupClose={closeAllPopups}
         caption={'sdfasdfsadfas'}
         src={'asdasdasdas'}
       />

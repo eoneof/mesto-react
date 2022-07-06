@@ -7,7 +7,8 @@ export default function PopupWithForm(props) {
 
   return (
     <>
-      <section className={`popup ${openedClassNameToggle}`}>
+      <section
+        className={`popup popup_type_${props.formName} ${openedClassNameToggle}`}>
         <div className='popup__container'>
           <button
             className='button popup__close-button'
