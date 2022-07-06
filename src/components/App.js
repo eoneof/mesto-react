@@ -59,8 +59,9 @@ function App() {
         onUpdateAvatar={handleUpdateAvatar}
         onEditProfile={handleEditProfile}
         onAddCard={handleAddCArd}
-        onCardClick={handleCardPreview}
-      />
+        onCardClick={handleCardPreview}>
+        <Card />
+      </Main>
       <Footer />
       <PopupWithForm
         formTitle='Редактировать профиль'
@@ -174,8 +175,6 @@ function App() {
         caption={'sdfasdfsadfas'}
         src={'asdasdasdas'}
       />
-
-      <Card />
     </div>
   );
 }

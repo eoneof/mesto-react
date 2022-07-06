@@ -5,12 +5,22 @@ import * as utils from '../utils/utils.js';
 import * as consts from '../utils/constants.js';
 
 import avatarPlaceHolderImage from '../images/avatar-placeholder.svg';
-function Main({ onUpdateAvatar, onEditProfile, onAddCard, onCardClick }) {
+function Main({
+  onUpdateAvatar,
+  onEditProfile,
+  onAddCard,
+  onCardClick,
+  children,
+}) {
   const api = new Api(consts.apiConfig);
 
   const [userName, setUserName] = React.useState('Имя Пользователя');
   const [userDescription, setUserDescription] = React.useState('Описание');
   const [userAvatar, setUserAvatar] = React.useState(avatarPlaceHolderImage);
+
+  const [cards, setCards] = React.useState([]);
+
+  const [dataIsLoaded, setDataIsloaded] = React.useState(false);
 
   function getAllData() {
     Promise.all([api.getUser(), api.getAllCards()])
@@ -18,6 +28,10 @@ function Main({ onUpdateAvatar, onEditProfile, onAddCard, onCardClick }) {
         setUserName(remoteUserData.name);
         setUserDescription(remoteUserData.about);
         setUserAvatar(remoteUserData.avatar);
+
+        console.log('👉remoteCardsData:', remoteCardsData);
+        setCards(remoteCardsData);
+        setDataIsloaded(true);
       })
       .catch((err) => {
         utils.requestErrorHandler(err);
@@ -26,7 +40,7 @@ function Main({ onUpdateAvatar, onEditProfile, onAddCard, onCardClick }) {
 
   React.useEffect(() => {
     getAllData();
-  });
+  }, [dataIsLoaded]);
 
   return (
     <>
@@ -74,7 +88,7 @@ function Main({ onUpdateAvatar, onEditProfile, onAddCard, onCardClick }) {
 
         {/* <!-- PHOTOS --> */}
         <section className='photos' aria-label='Фотографии пользователя'>
-          <ul className='cards-grid'></ul>
+          <ul className='cards-grid'>{children}</ul>
         </section>
       </main>
     </>
