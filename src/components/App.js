@@ -50,8 +50,8 @@ export default function App() {
   return (
     <div className='page'>
       <Header />
-      <Preloader />
       <Main
+        preloader={<Preloader />}
         onUpdateAvatar={openUpdateAvatarPopup}
         onEditProfile={openEditProfilePopup}
         onAddCard={openNewCardPopup}
@@ -59,7 +59,10 @@ export default function App() {
         onDeleteButtonClick={openConfirmDeletePopup}>
         <Card />
       </Main>
+
       <Footer />
+
+      {/* EDIT */}
       <PopupWithForm
         formTitle='Редактировать профиль'
         popupType='edit'
@@ -96,6 +99,7 @@ export default function App() {
         </>
       </PopupWithForm>
 
+      {/* ADD */}
       <PopupWithForm
         formTitle='Новое место'
         popupType='add'
@@ -134,6 +138,7 @@ export default function App() {
         </>
       </PopupWithForm>
 
+      {/* UPDATE */}
       <PopupWithForm
         formTitle='Обновить аватар'
         popupType='update'
@@ -157,6 +162,7 @@ export default function App() {
         </>
       </PopupWithForm>
 
+      {/* CONFIRM */}
       <PopupConfirm
         popupType='confirm'
         formTitle='Вы уверены?'
@@ -165,6 +171,7 @@ export default function App() {
         onPopupClose={closeAllPopups}
       />
 
+      {/* IMAGE VIEW */}
       <PopupWithImage
         popupType='view'
         selectedCard={selectedCard}
