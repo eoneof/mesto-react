@@ -36,8 +36,11 @@ export default function App() {
     setIsAddPopoupOpen(true);
   }
 
+  function openConfirmDeletePopup() {
+    setIsConfirmPopupOpen(true);
+  }
+
   function openImageViewPopup(cardID) {
-    console.log('👉cardID:', cardID);
     setIsImageViewPopupOpen(true);
     setSelectedCard(cardID);
   }
@@ -50,13 +53,14 @@ export default function App() {
         onUpdateAvatar={openUpdateAvatarPopup}
         onEditProfile={openEditProfilePopup}
         onAddCard={openNewCardPopup}
-        onCardThumbClick={openImageViewPopup}>
+        onCardThumbClick={openImageViewPopup}
+        onDeleteButtonClick={openConfirmDeletePopup}>
         <Card />
       </Main>
       <Footer />
       <PopupWithForm
         formTitle='Редактировать профиль'
-        formName='edit'
+        popupType='edit'
         isOpen={isEditPopupOpen}
         submitButtonText='Сохранить'
         onPopupClose={closeAllPopups}>
@@ -92,7 +96,7 @@ export default function App() {
 
       <PopupWithForm
         formTitle='Новое место'
-        formName='add'
+        popupType='add'
         submitButtonText='Сохранить'
         isOpen={isAddPopupOpen}
         onPopupClose={closeAllPopups}>
@@ -130,7 +134,7 @@ export default function App() {
 
       <PopupWithForm
         formTitle='Обновить аватар'
-        formName='update'
+        popupType='update'
         submitButtonText='Сохранить'
         isOpen={isUpdatePopupOpen}
         onPopupClose={closeAllPopups}>
@@ -152,6 +156,7 @@ export default function App() {
       </PopupWithForm>
 
       <PopupConfirm
+        popupType='confirm'
         formTitle='Вы уверены?'
         submitButtonText='Да'
         isOpen={isConfirmPopupOpen}
@@ -159,6 +164,7 @@ export default function App() {
       />
 
       <PopupWithImage
+        popupType='view'
         selectedCard={selectedCard}
         caption={selectedCard.name}
         src={selectedCard.link}

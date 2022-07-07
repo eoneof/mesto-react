@@ -1,12 +1,12 @@
 import React from 'react';
 
 export default function PopupWithImage(props) {
-  const openedClassNameToggle = `${props.isOpen && 'popup_opened'}`;
+  const openedClassNameToggle = `${props.isOpen ? 'popup_opened' : ''}`;
 
   return (
     <>
       <section
-        className={`popup ${openedClassNameToggle}`}
+        className={`popup popup_type_${props.popupType} ${openedClassNameToggle}`}
         aria-label='Превью фотографии'>
         <div className='popup__container'>
           <button

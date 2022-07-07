@@ -33,7 +33,6 @@ export default function Main(props) {
 
   return (
     <>
-      {/* <!-- TODO add `hidden` class (or should I?)--> */}
       <main className='main'>
         {/* <!-- PROFILE --> */}
         <section className='profile' data-user-id='' data-user-cohort=''>
@@ -75,7 +74,7 @@ export default function Main(props) {
             onClick={props.onAddCard}></button>
         </section>
 
-        {/* <!-- PHOTOS --> */}
+        {/* <!-- CARDS --> */}
         <section className='photos' aria-label='Фотографии пользователя'>
           <ul className='cards-grid'>
             {cards.map((card) => {
@@ -84,6 +83,7 @@ export default function Main(props) {
                 key: card._id,
                 cardData: card,
                 onCardThumbClick: props.onCardThumbClick,
+                onDeleteButtonClick: props.onDeleteButtonClick,
               });
             })}
           </ul>
