@@ -9,57 +9,48 @@ import PopupWithImage from './PopupWithImage.js';
 import Card from './Card.js';
 import PopupConfirm from './PopupConfirm.js';
 
-function App() {
+export default function App() {
   const [isAddPopupOpen, setIsAddPopoupOpen] = React.useState(false);
   const [isEditPopupOpen, setIsEditPopupOpen] = React.useState(false);
   const [isUpdatePopupOpen, setIsUpdatePopupOpen] = React.useState(false);
-  const [isPreviewPopupOpen, setIsPreviewPopupOpen] = React.useState(false);
+  const [isImageViewPopupOpen, setIsImageViewPopupOpen] = React.useState(false);
   const [isConfirmPopupOpen, setIsConfirmPopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState('');
 
   function closeAllPopups() {
     setIsUpdatePopupOpen(false);
     setIsEditPopupOpen(false);
     setIsAddPopoupOpen(false);
-    setIsPreviewPopupOpen(false);
+    setIsImageViewPopupOpen(false);
   }
 
-  function handleUpdateAvatar() {
+  function openUpdateAvatarPopup() {
     setIsUpdatePopupOpen(true);
   }
 
-  function handleEditProfile() {
+  function openEditProfilePopup() {
     setIsEditPopupOpen(true);
   }
 
-  function handleAddCArd() {
+  function openNewCardPopup() {
     setIsAddPopoupOpen(true);
   }
 
-  function handleCardPreview() {
-    setIsPreviewPopupOpen(true);
+  function openImageViewPopup(cardID) {
+    console.log('👉cardID:', cardID);
+    setIsImageViewPopupOpen(true);
+    setSelectedCard(cardID);
   }
-
-  // TODO move to card
-  // function handleConfirmDelete() {
-  //   setIsConfirmPopupOpen(true);
-  // }
-
-  // FIXME put it somewhere
-  // function handleEscClose(evt) {
-  //   if (evt.key === 'Escape') {
-  //     setIsPopoupOpen(false);
-  //   }
-  // }
 
   return (
     <div className='page'>
       <Header />
       <Preloader />
       <Main
-        onUpdateAvatar={handleUpdateAvatar}
-        onEditProfile={handleEditProfile}
-        onAddCard={handleAddCArd}
-        onCardClick={handleCardPreview}>
+        onUpdateAvatar={openUpdateAvatarPopup}
+        onEditProfile={openEditProfilePopup}
+        onAddCard={openNewCardPopup}
+        onCardThumbClick={openImageViewPopup}>
         <Card />
       </Main>
       <Footer />
@@ -68,9 +59,7 @@ function App() {
         formName='edit'
         isOpen={isEditPopupOpen}
         submitButtonText='Сохранить'
-        onPopupClose={closeAllPopups}
-        /* onEscape={handleEscClose} */
-      >
+        onPopupClose={closeAllPopups}>
         <>
           <fieldset className='form__fieldset'>
             <div className='form__input-container'>
@@ -170,13 +159,12 @@ function App() {
       />
 
       <PopupWithImage
-        isOpen={isPreviewPopupOpen}
+        selectedCard={selectedCard}
+        caption={selectedCard.name}
+        src={selectedCard.link}
+        isOpen={isImageViewPopupOpen}
         onPopupClose={closeAllPopups}
-        caption={'Caption'}
-        src={'https://example.com/image.jpg'}
       />
     </div>
   );
 }
-
-export default App;

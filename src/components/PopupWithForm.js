@@ -1,7 +1,5 @@
 import React from 'react';
 
-// TODO remove redundant
-
 export default function PopupWithForm(props) {
   const openedClassNameToggle = `${props.isOpen && 'popup_opened'}`;
 
@@ -14,9 +12,9 @@ export default function PopupWithForm(props) {
             className='button popup__close-button'
             type='button'
             name='close-button'
-            title={props.submitButtonText}
+            title='Закрыть'
             onClick={props.onPopupClose}>
-            {props.submitButtonText}
+            Закрыть
           </button>
           <form
             noValidate
@@ -30,7 +28,7 @@ export default function PopupWithForm(props) {
               form={props.formName}
               type='submit'
               name='submit-button'>
-              Сохранить
+              {props.submitButtonText}
             </button>
           </form>
         </div>

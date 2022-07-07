@@ -3,8 +3,8 @@ import React from 'react';
 import Api from '../utils/Api.js';
 import * as utils from '../utils/utils.js';
 import * as consts from '../utils/constants.js';
-
 import avatarPlaceHolderImage from '../images/avatar-placeholder.svg';
+
 export default function Main(props) {
   const api = new Api(consts.apiConfig);
 
@@ -78,10 +78,12 @@ export default function Main(props) {
         {/* <!-- PHOTOS --> */}
         <section className='photos' aria-label='Фотографии пользователя'>
           <ul className='cards-grid'>
-            {cards.map((data) => {
+            {cards.map((card) => {
+              // clone Card child from App
               return React.cloneElement(props.children, {
-                key: data._id,
-                cardData: data,
+                key: card._id,
+                cardData: card,
+                onCardThumbClick: props.onCardThumbClick,
               });
             })}
           </ul>
