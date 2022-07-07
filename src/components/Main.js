@@ -6,13 +6,16 @@ import * as consts from '../utils/constants.js';
 import avatarPlaceHolderImage from '../images/avatar-placeholder.svg';
 
 export default function Main(props) {
-  const api = new Api(consts.apiConfig);
-
   const [userName, setUserName] = React.useState('Имя Пользователя');
   const [userDescription, setUserDescription] = React.useState('Описание');
   const [userAvatar, setUserAvatar] = React.useState(avatarPlaceHolderImage);
-
   const [cards, setCards] = React.useState([]);
+
+  // hide everything but header until data is fetched
+  const [dataIsLoaded, setDataIsLoaded] = React.useState(false);
+  const hiddenClassNameToggle = `${!dataIsLoaded ? 'hidden' : ''}`;
+
+  const api = new Api(consts.apiConfig);
 
   function getAllData() {
     Promise.all([api.getUser(), api.getAllCards()])
@@ -21,6 +24,9 @@ export default function Main(props) {
         setUserDescription(remoteUserData.about);
         setUserAvatar(remoteUserData.avatar);
         setCards(remoteCardsData);
+      })
+      .then(() => {
+        setDataIsLoaded(true);
       })
       .catch((err) => {
         utils.requestErrorHandler(err);
@@ -34,8 +40,15 @@ export default function Main(props) {
   return (
     <>
       <main className='main'>
+        {React.cloneElement(props.preloader, {
+          dataIsLoaded: dataIsLoaded,
+        })}
+
         {/* <!-- PROFILE --> */}
-        <section className='profile' data-user-id='' data-user-cohort=''>
+        <section
+          className={`profile ${hiddenClassNameToggle}`}
+          data-user-id=''
+          data-user-cohort=''>
           <div className='profile__container'>
             <div
               className='profile__photo-container'
@@ -74,8 +87,10 @@ export default function Main(props) {
             onClick={props.onAddCard}></button>
         </section>
 
-        {/* <!-- CARDS --> */}
-        <section className='photos' aria-label='Фотографии пользователя'>
+        {/* <!-- CARDS WITH PHOTOS --> */}
+        <section
+          className={`photos ${hiddenClassNameToggle}`}
+          aria-label='Фотографии пользователя'>
           <ul className='cards-grid'>
             {cards.map((card) => {
               // clone Card child from App
