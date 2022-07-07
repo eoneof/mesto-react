@@ -1,4 +1,3 @@
-// TODO move to index.js
 const date = new Date();
 const currentYear = date.getFullYear();
 
