@@ -22,6 +22,8 @@ export default function App() {
     setIsEditPopupOpen(false);
     setIsAddPopoupOpen(false);
     setIsImageViewPopupOpen(false);
+    setIsConfirmPopupOpen(false);
+    setSelectedCard('');
   }
 
   function openUpdateAvatarPopup() {
@@ -40,9 +42,9 @@ export default function App() {
     setIsConfirmPopupOpen(true);
   }
 
-  function openImageViewPopup(cardID) {
+  function openImageViewPopup(cardData) {
     setIsImageViewPopupOpen(true);
-    setSelectedCard(cardID);
+    setSelectedCard(cardData);
   }
 
   return (
@@ -166,8 +168,6 @@ export default function App() {
       <PopupWithImage
         popupType='view'
         selectedCard={selectedCard}
-        caption={selectedCard.name}
-        src={selectedCard.link}
         isOpen={isImageViewPopupOpen}
         onPopupClose={closeAllPopups}
       />
