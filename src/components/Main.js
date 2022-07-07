@@ -5,7 +5,7 @@ import * as utils from '../utils/utils.js';
 import * as consts from '../utils/constants.js';
 
 import avatarPlaceHolderImage from '../images/avatar-placeholder.svg';
-function Main({ onUpdateAvatar, onEditProfile, onAddCard, onCardClick, children }) {
+function Main(props) {
   const api = new Api(consts.apiConfig);
 
   const [userName, setUserName] = React.useState('Имя Пользователя');
@@ -29,7 +29,6 @@ function Main({ onUpdateAvatar, onEditProfile, onAddCard, onCardClick, children 
 
   React.useEffect(() => {
     getAllData();
-    console.log('usEffect');
   }, []);
 
   return (
@@ -46,7 +45,7 @@ function Main({ onUpdateAvatar, onEditProfile, onAddCard, onCardClick, children 
               title='Изменить фотографию профиля'>
               <button
                 className='profile__photo-overlay'
-                onClick={onUpdateAvatar}></button>
+                onClick={props.onUpdateAvatar}></button>
               <img
                 className='profile__photo'
                 alt='Фотография пользователя.'
@@ -62,7 +61,7 @@ function Main({ onUpdateAvatar, onEditProfile, onAddCard, onCardClick, children 
                     type='button'
                     name='edit-button'
                     title='Редактировать профиль'
-                    onClick={onEditProfile}></button>
+                    onClick={props.onEditProfile}></button>
                 </div>
                 <p className='profile__about'>{userDescription}</p>
               </div>
@@ -73,12 +72,44 @@ function Main({ onUpdateAvatar, onEditProfile, onAddCard, onCardClick, children 
             type='button'
             name='add-button'
             title='Добавить фотографии'
-            onClick={onAddCard}></button>
+            onClick={props.onAddCard}></button>
         </section>
 
         {/* <!-- PHOTOS --> */}
         <section className='photos' aria-label='Фотографии пользователя'>
-          <ul className='cards-grid'>{children}</ul>
+          <ul className='cards-grid'>
+            {/* {props.cardElement} */}
+            {cards.map((item) => (
+              <li
+                key={item._id}
+                className='cards-grid__item card'
+                data-card-id={item._id}
+                data-owner-id=''
+                data-created-at=''>
+                <button
+                  className='button card__delete-button'
+                  type='button'
+                  name='delete-button'
+                  title='Удалить'></button>
+                <div className='card__image-container'>
+                  <img className='card__image' src={item.link} alt={item.name} />
+                </div>
+                <div className='card__label'>
+                  <h2 className='card__title'>{item.name}</h2>
+                  <div className='card__like-container card__like-container_is-liked'>
+                    <button
+                      type='button'
+                      className='button card__like-button'
+                      name='like-button'
+                      title='Нравится!'></button>
+                    <span className='card__like-counter card__like-counter_visible'>
+                      {item.likes.length}
+                    </span>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
         </section>
       </main>
     </>
