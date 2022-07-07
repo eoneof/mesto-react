@@ -1,13 +1,33 @@
 import React from 'react';
 
 export default function Card(props) {
-  const openImageView = () => {
-    props.onCardThumbClick(props.cardData);
-  };
+  const [hasLikes, setHasLikes] = React.useState(false);
+  const [isLiked, setIsLiked] = React.useState(false);
 
-  const openDeleteConfirmPopup = () => {
+  function openImageView() {
+    props.onCardThumbClick(props.cardData);
+  }
+
+  function openDeleteConfirmPopup() {
     props.onDeleteButtonClick();
-  };
+  }
+
+  function checkHasLikes() {
+    if (props.cardData.likes.length > 0) {
+      setHasLikes(true);
+    }
+  }
+
+  function checkIsLiked() {
+    if (props.cardData.likes.some((liker) => liker._id === props.userID)) {
+      setIsLiked(true);
+    }
+  }
+
+  React.useEffect(() => {
+    checkHasLikes();
+    checkIsLiked();
+  }, []);
 
   return (
     <>
@@ -33,14 +53,21 @@ export default function Card(props) {
         </div>
         <div className='card__label'>
           <h2 className='card__title'>{props.cardData.name}</h2>
-          {/* FIXME change class names based on state */}
-          <div className='card__like-container card__like-container_is-liked'>
+          <div
+            className={`card__like-container ${
+              hasLikes && 'card__like-container_is-liked'
+            }`}>
             <button
-              className='button card__like-button'
+              className={`button card__like-button ${
+                isLiked && 'card__like-button_active'
+              }`}
               type='button'
               name='like-button'
               title='Нравится!'></button>
-            <span className='card__like-counter card__like-counter_visible'>
+            <span
+              className={`card__like-counter ${
+                hasLikes && 'card__like-counter_visible'
+              }`}>
               {props.cardData.likes.length}
             </span>
           </div>

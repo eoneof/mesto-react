@@ -19,8 +19,7 @@ export default function PopupWithImage(props) {
           <figure className='preview'>
             <img
               className='preview__image'
-              // FIXME react warning: invalid value for prop `src` on <img> tag.
-              src={props.selectedCard.link}
+              src={props.selectedCard.link} // FIXME React warning: invalid value for prop `src` on <img> tag...
               alt={props.selectedCard.name}
             />
             <figcaption className='preview__caption'>

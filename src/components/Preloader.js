@@ -3,7 +3,6 @@ export default function Preloader(props) {
 
   return (
     <>
-      {/* TODO remove hidden */}
       <div className={`preloader ${hiddenClassNameToggle}`}>
         <div className='spinner'></div>
       </div>

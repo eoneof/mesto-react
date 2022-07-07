@@ -15,6 +15,7 @@ export default function App() {
   const [isUpdatePopupOpen, setIsUpdatePopupOpen] = React.useState(false);
   const [isImageViewPopupOpen, setIsImageViewPopupOpen] = React.useState(false);
   const [isConfirmPopupOpen, setIsConfirmPopupOpen] = React.useState(false);
+
   const [selectedCard, setSelectedCard] = React.useState('');
 
   function closeAllPopups() {
@@ -23,6 +24,7 @@ export default function App() {
     setIsAddPopoupOpen(false);
     setIsImageViewPopupOpen(false);
     setIsConfirmPopupOpen(false);
+
     setSelectedCard('');
   }
 
@@ -51,14 +53,14 @@ export default function App() {
     <div className='page'>
       <Header />
       <Main
-        preloader={<Preloader />}
+        cardComponent={<Card />}
+        preloaderComponent={<Preloader />}
         onUpdateAvatar={openUpdateAvatarPopup}
         onEditProfile={openEditProfilePopup}
         onAddCard={openNewCardPopup}
         onCardThumbClick={openImageViewPopup}
-        onDeleteButtonClick={openConfirmDeletePopup}>
-        <Card />
-      </Main>
+        onDeleteButtonClick={openConfirmDeletePopup}
+      />
 
       <Footer />
 
@@ -79,7 +81,7 @@ export default function App() {
                 type='text'
                 minLength='2'
                 maxLength='30'
-                placeholder='Название'
+                placeholder='Как вас зовут?'
                 required
               />
               <span className='form__input-error-hint name-input-error'></span>
@@ -90,7 +92,7 @@ export default function App() {
                 id='photoLinkInput'
                 name='link'
                 type='url'
-                placeholder='Ссылка на картинку'
+                placeholder='Напишите что-нибудь о себе'
                 required
               />
               <span className='form__input-error-hint link-input-error'></span>
@@ -116,7 +118,7 @@ export default function App() {
                 type='text'
                 minLength='2'
                 maxLength='40'
-                placeholder='Как вас зовут?'
+                placeholder='Название'
                 required
               />
               <span className='form__input-error-hint name-input-error'></span>
@@ -129,7 +131,7 @@ export default function App() {
                 type='text'
                 minLength='2'
                 maxLength='200'
-                placeholder='Напишите что-нибудь о себе'
+                placeholder='Ссылка на картинку'
                 required
               />
               <span className='form__input-error-hint about-input-error'></span>
