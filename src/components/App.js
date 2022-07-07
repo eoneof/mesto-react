@@ -5,7 +5,7 @@ import Main from './Main.js';
 import Footer from './Footer.js';
 import Preloader from './Preloader.js';
 import PopupWithForm from './PopupWithForm.js';
-import PopupWithImage from './PopupWithImage.js';
+import ImagePopup from './ImagePopup.js';
 import Card from './Card.js';
 import PopupConfirm from './PopupConfirm.js';
 
@@ -70,7 +70,7 @@ export default function App() {
         popupType='edit'
         isOpen={isEditPopupOpen}
         submitButtonText='Сохранить'
-        onPopupClose={closeAllPopups}>
+        closeAllPopups={closeAllPopups}>
         <>
           <fieldset className='form__fieldset'>
             <div className='form__input-container'>
@@ -107,7 +107,7 @@ export default function App() {
         popupType='add'
         submitButtonText='Сохранить'
         isOpen={isAddPopupOpen}
-        onPopupClose={closeAllPopups}>
+        closeAllPopups={closeAllPopups}>
         <>
           <fieldset className='form__fieldset'>
             <div className='form__input-container'>
@@ -146,7 +146,7 @@ export default function App() {
         popupType='update'
         submitButtonText='Сохранить'
         isOpen={isUpdatePopupOpen}
-        onPopupClose={closeAllPopups}>
+        closeAllPopups={closeAllPopups}>
         <>
           <fieldset className='form__fieldset'>
             <div className='form__input-container'>
@@ -170,15 +170,15 @@ export default function App() {
         formTitle='Вы уверены?'
         submitButtonText='Да'
         isOpen={isConfirmPopupOpen}
-        onPopupClose={closeAllPopups}
+        closeAllPopups={closeAllPopups}
       />
 
       {/* IMAGE VIEW */}
-      <PopupWithImage
+      <ImagePopup
         popupType='view'
         selectedCard={selectedCard}
         isOpen={isImageViewPopupOpen}
-        onPopupClose={closeAllPopups}
+        closeAllPopups={closeAllPopups}
       />
     </div>
   );
