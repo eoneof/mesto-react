@@ -6,6 +6,7 @@ import * as consts from '../utils/constants.js';
 import avatarPlaceHolderImage from '../images/avatar-placeholder.svg';
 
 export default function Main(props) {
+  const [userID, setUserID] = React.useState('');
   const [userName, setUserName] = React.useState('Имя Пользователя');
   const [userDescription, setUserDescription] = React.useState('Описание');
   const [userAvatar, setUserAvatar] = React.useState(avatarPlaceHolderImage);
@@ -20,6 +21,7 @@ export default function Main(props) {
   function getAllData() {
     Promise.all([api.getUser(), api.getAllCards()])
       .then(([remoteUserData, remoteCardsData]) => {
+        setUserID(remoteUserData._id);
         setUserName(remoteUserData.name);
         setUserDescription(remoteUserData.about);
         setUserAvatar(remoteUserData.avatar);
@@ -96,9 +98,11 @@ export default function Main(props) {
               // clone Card child from App
               return React.cloneElement(props.cardComponent, {
                 key: card._id,
+                userID: userID,
                 cardData: card,
                 onCardThumbClick: props.onCardThumbClick,
                 onDeleteButtonClick: props.onDeleteButtonClick,
+                dataIsLoaded: dataIsLoaded,
               });
             })}
           </ul>
