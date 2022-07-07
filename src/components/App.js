@@ -59,9 +59,9 @@ function App() {
         onUpdateAvatar={handleUpdateAvatar}
         onEditProfile={handleEditProfile}
         onAddCard={handleAddCArd}
-        onCardClick={handleCardPreview}
-        /*   cardElement={<Card name='Заголовок карточки' src={cardImage} />} */
-      />
+        onCardClick={handleCardPreview}>
+        <Card />
+      </Main>
       <Footer />
       <PopupWithForm
         formTitle='Редактировать профиль'
