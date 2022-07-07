@@ -5,13 +5,7 @@ import * as utils from '../utils/utils.js';
 import * as consts from '../utils/constants.js';
 
 import avatarPlaceHolderImage from '../images/avatar-placeholder.svg';
-function Main({
-  onUpdateAvatar,
-  onEditProfile,
-  onAddCard,
-  onCardClick,
-  children,
-}) {
+function Main({ onUpdateAvatar, onEditProfile, onAddCard, onCardClick, children }) {
   const api = new Api(consts.apiConfig);
 
   const [userName, setUserName] = React.useState('Имя Пользователя');
@@ -20,18 +14,13 @@ function Main({
 
   const [cards, setCards] = React.useState([]);
 
-  const [dataIsLoaded, setDataIsloaded] = React.useState(false);
-
   function getAllData() {
     Promise.all([api.getUser(), api.getAllCards()])
       .then(([remoteUserData, remoteCardsData]) => {
         setUserName(remoteUserData.name);
         setUserDescription(remoteUserData.about);
         setUserAvatar(remoteUserData.avatar);
-
-        console.log('👉remoteCardsData:', remoteCardsData);
         setCards(remoteCardsData);
-        setDataIsloaded(true);
       })
       .catch((err) => {
         utils.requestErrorHandler(err);
@@ -40,7 +29,8 @@ function Main({
 
   React.useEffect(() => {
     getAllData();
-  }, [dataIsLoaded]);
+    console.log('usEffect');
+  }, []);
 
   return (
     <>
