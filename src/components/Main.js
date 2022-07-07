@@ -40,7 +40,7 @@ export default function Main(props) {
   return (
     <>
       <main className='main'>
-        {React.cloneElement(props.preloader, {
+        {React.cloneElement(props.preloaderComponent, {
           dataIsLoaded: dataIsLoaded,
         })}
 
@@ -94,7 +94,7 @@ export default function Main(props) {
           <ul className='cards-grid'>
             {cards.map((card) => {
               // clone Card child from App
-              return React.cloneElement(props.children, {
+              return React.cloneElement(props.cardComponent, {
                 key: card._id,
                 cardData: card,
                 onCardThumbClick: props.onCardThumbClick,

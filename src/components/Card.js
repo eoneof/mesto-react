@@ -1,13 +1,13 @@
 import React from 'react';
 
 export default function Card(props) {
-  const openImageView = () => {
+  function openImageView() {
     props.onCardThumbClick(props.cardData);
-  };
+  }
 
-  const openDeleteConfirmPopup = () => {
+  function openDeleteConfirmPopup() {
     props.onDeleteButtonClick();
-  };
+  }
 
   return (
     <>
