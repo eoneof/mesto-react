@@ -3,14 +3,16 @@ import React from 'react';
 import Api from '../utils/Api.js';
 import * as utils from '../utils/utils.js';
 import * as consts from '../utils/constants.js';
-
 import avatarPlaceHolderImage from '../images/avatar-placeholder.svg';
-function Main({ onUpdateAvatar, onEditProfile, onAddCard, onCardClick }) {
+
+export default function Main(props) {
   const api = new Api(consts.apiConfig);
 
   const [userName, setUserName] = React.useState('Имя Пользователя');
   const [userDescription, setUserDescription] = React.useState('Описание');
   const [userAvatar, setUserAvatar] = React.useState(avatarPlaceHolderImage);
+
+  const [cards, setCards] = React.useState([]);
 
   function getAllData() {
     Promise.all([api.getUser(), api.getAllCards()])
@@ -18,6 +20,7 @@ function Main({ onUpdateAvatar, onEditProfile, onAddCard, onCardClick }) {
         setUserName(remoteUserData.name);
         setUserDescription(remoteUserData.about);
         setUserAvatar(remoteUserData.avatar);
+        setCards(remoteCardsData);
       })
       .catch((err) => {
         utils.requestErrorHandler(err);
@@ -26,11 +29,10 @@ function Main({ onUpdateAvatar, onEditProfile, onAddCard, onCardClick }) {
 
   React.useEffect(() => {
     getAllData();
-  });
+  }, []);
 
   return (
     <>
-      {/* <!-- TODO add `hidden` class (or should I?)--> */}
       <main className='main'>
         {/* <!-- PROFILE --> */}
         <section className='profile' data-user-id='' data-user-cohort=''>
@@ -42,7 +44,7 @@ function Main({ onUpdateAvatar, onEditProfile, onAddCard, onCardClick }) {
               title='Изменить фотографию профиля'>
               <button
                 className='profile__photo-overlay'
-                onClick={onUpdateAvatar}></button>
+                onClick={props.onUpdateAvatar}></button>
               <img
                 className='profile__photo'
                 alt='Фотография пользователя.'
@@ -58,7 +60,7 @@ function Main({ onUpdateAvatar, onEditProfile, onAddCard, onCardClick }) {
                     type='button'
                     name='edit-button'
                     title='Редактировать профиль'
-                    onClick={onEditProfile}></button>
+                    onClick={props.onEditProfile}></button>
                 </div>
                 <p className='profile__about'>{userDescription}</p>
               </div>
@@ -69,16 +71,24 @@ function Main({ onUpdateAvatar, onEditProfile, onAddCard, onCardClick }) {
             type='button'
             name='add-button'
             title='Добавить фотографии'
-            onClick={onAddCard}></button>
+            onClick={props.onAddCard}></button>
         </section>
 
-        {/* <!-- PHOTOS --> */}
+        {/* <!-- CARDS --> */}
         <section className='photos' aria-label='Фотографии пользователя'>
-          <ul className='cards-grid'></ul>
+          <ul className='cards-grid'>
+            {cards.map((card) => {
+              // clone Card child from App
+              return React.cloneElement(props.children, {
+                key: card._id,
+                cardData: card,
+                onCardThumbClick: props.onCardThumbClick,
+                onDeleteButtonClick: props.onDeleteButtonClick,
+              });
+            })}
+          </ul>
         </section>
       </main>
     </>
   );
 }
-
-export default Main;

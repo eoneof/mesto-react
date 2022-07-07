@@ -9,67 +9,63 @@ import PopupWithImage from './PopupWithImage.js';
 import Card from './Card.js';
 import PopupConfirm from './PopupConfirm.js';
 
-function App() {
+export default function App() {
   const [isAddPopupOpen, setIsAddPopoupOpen] = React.useState(false);
   const [isEditPopupOpen, setIsEditPopupOpen] = React.useState(false);
   const [isUpdatePopupOpen, setIsUpdatePopupOpen] = React.useState(false);
-  const [isPreviewPopupOpen, setIsPreviewPopupOpen] = React.useState(false);
+  const [isImageViewPopupOpen, setIsImageViewPopupOpen] = React.useState(false);
   const [isConfirmPopupOpen, setIsConfirmPopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState('');
 
   function closeAllPopups() {
     setIsUpdatePopupOpen(false);
     setIsEditPopupOpen(false);
     setIsAddPopoupOpen(false);
-    setIsPreviewPopupOpen(false);
+    setIsImageViewPopupOpen(false);
+    setIsConfirmPopupOpen(false);
+    setSelectedCard('');
   }
 
-  function handleUpdateAvatar() {
+  function openUpdateAvatarPopup() {
     setIsUpdatePopupOpen(true);
   }
 
-  function handleEditProfile() {
+  function openEditProfilePopup() {
     setIsEditPopupOpen(true);
   }
 
-  function handleAddCArd() {
+  function openNewCardPopup() {
     setIsAddPopoupOpen(true);
   }
 
-  function handleCardPreview() {
-    setIsPreviewPopupOpen(true);
+  function openConfirmDeletePopup() {
+    setIsConfirmPopupOpen(true);
   }
 
-  // TODO move to card
-  // function handleConfirmDelete() {
-  //   setIsConfirmPopupOpen(true);
-  // }
-
-  // FIXME put it somewhere
-  // function handleEscClose(evt) {
-  //   if (evt.key === 'Escape') {
-  //     setIsPopoupOpen(false);
-  //   }
-  // }
+  function openImageViewPopup(cardData) {
+    setIsImageViewPopupOpen(true);
+    setSelectedCard(cardData);
+  }
 
   return (
     <div className='page'>
       <Header />
       <Preloader />
       <Main
-        onUpdateAvatar={handleUpdateAvatar}
-        onEditProfile={handleEditProfile}
-        onAddCard={handleAddCArd}
-        onCardClick={handleCardPreview}
-      />
+        onUpdateAvatar={openUpdateAvatarPopup}
+        onEditProfile={openEditProfilePopup}
+        onAddCard={openNewCardPopup}
+        onCardThumbClick={openImageViewPopup}
+        onDeleteButtonClick={openConfirmDeletePopup}>
+        <Card />
+      </Main>
       <Footer />
       <PopupWithForm
         formTitle='Редактировать профиль'
-        formName='edit'
+        popupType='edit'
         isOpen={isEditPopupOpen}
         submitButtonText='Сохранить'
-        onPopupClose={closeAllPopups}
-        /* onEscape={handleEscClose} */
-      >
+        onPopupClose={closeAllPopups}>
         <>
           <fieldset className='form__fieldset'>
             <div className='form__input-container'>
@@ -102,7 +98,7 @@ function App() {
 
       <PopupWithForm
         formTitle='Новое место'
-        formName='add'
+        popupType='add'
         submitButtonText='Сохранить'
         isOpen={isAddPopupOpen}
         onPopupClose={closeAllPopups}>
@@ -140,7 +136,7 @@ function App() {
 
       <PopupWithForm
         formTitle='Обновить аватар'
-        formName='update'
+        popupType='update'
         submitButtonText='Сохранить'
         isOpen={isUpdatePopupOpen}
         onPopupClose={closeAllPopups}>
@@ -162,6 +158,7 @@ function App() {
       </PopupWithForm>
 
       <PopupConfirm
+        popupType='confirm'
         formTitle='Вы уверены?'
         submitButtonText='Да'
         isOpen={isConfirmPopupOpen}
@@ -169,15 +166,11 @@ function App() {
       />
 
       <PopupWithImage
-        isOpen={isPreviewPopupOpen}
+        popupType='view'
+        selectedCard={selectedCard}
+        isOpen={isImageViewPopupOpen}
         onPopupClose={closeAllPopups}
-        caption={'sdfasdfsadfas'}
-        src={'asdasdasdas'}
       />
-
-      <Card />
     </div>
   );
 }
-
-export default App;
