@@ -4,4 +4,8 @@
   max-height: 75vh;
   object-position: center;
   object-fit: contain;
+  background-image: url("../../../images/card-image-placeholder.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #000;
 }
