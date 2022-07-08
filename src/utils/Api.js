@@ -38,13 +38,20 @@
   }
 
   getAllCards() {
-    return fetch(`${this._server}/${this._cards}`, {
+    return fetch('http://localhost:3000/cards', {
       method: 'GET',
-      headers: this._headers,
     }).then((res) => {
       return this._handleResponse(res);
     });
   }
+  // getAllCards() {
+  //   return fetch(`${this._server}/${this._cards}`, {
+  //     method: 'GET',
+  //     headers: this._headers,
+  //   }).then((res) => {
+  //     return this._handleResponse(res);
+  //   });
+  // }
 
   addCard(data) {
     return fetch(`${this._server}/${this._cards}`, {

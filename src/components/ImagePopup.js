@@ -2,10 +2,10 @@ import React from 'react';
 
 export default function ImagePopup(props) {
   const cardHasData = () => {
-    if ((props.selectedCard.name || props.selectedCard.link) !== '') {
-      return true;
-    } else {
+    if ((props.selectedCard.link && props.selectedCard.link) === ('' && undefined)) {
       return false;
+    } else {
+      return true;
     }
   };
 
