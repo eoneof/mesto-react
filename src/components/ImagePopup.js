@@ -5,8 +5,7 @@ export default function ImagePopup(props) {
 
   return (
     <>
-      <section
-        className={`popup popup_type_${props.popupType} ${openedClassNameToggle}`}>
+      <section className={`popup popup_type_${props.popupType} ${openedClassNameToggle}`}>
         <div className='popup__container'>
           <button
             className='button popup__close-button'
@@ -17,11 +16,7 @@ export default function ImagePopup(props) {
             Закрыть
           </button>
           <figure className='preview'>
-            <img
-              className='preview__image'
-              src={props.selectedCard.link} // FIXME React warning: invalid value for prop `src` on <img> tag...
-              alt={props.selectedCard.name}
-            />
+            <img className='preview__image' src={''} alt={props.selectedCard.name} />
             <figcaption className='preview__caption'>
               {props.selectedCard.name}
             </figcaption>
