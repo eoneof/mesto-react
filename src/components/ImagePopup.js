@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function PopupWithImage(props) {
+export default function ImagePopup(props) {
   const openedClassNameToggle = `${props.isOpen ? 'popup_opened' : ''}`;
 
   return (
@@ -13,7 +13,7 @@ export default function PopupWithImage(props) {
             type='button'
             name='close-button'
             title='Закрыть'
-            onClick={props.onPopupClose}>
+            onClick={props.closeAllPopups}>
             Закрыть
           </button>
           <figure className='preview'>
@@ -29,7 +29,7 @@ export default function PopupWithImage(props) {
         </div>
         <div
           className='popup__backdrop popup__backdrop_place_preview'
-          onClick={props.onPopupClose}></div>
+          onClick={props.closeAllPopups}></div>
       </section>
     </>
   );
