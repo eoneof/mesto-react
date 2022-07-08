@@ -16,7 +16,7 @@ export default function App() {
   const [isImageViewPopupOpen, setIsImageViewPopupOpen] = React.useState(false);
   const [isConfirmPopupOpen, setIsConfirmPopupOpen] = React.useState(false);
 
-  const [selectedCard, setSelectedCard] = React.useState('');
+  const [selectedCard, setSelectedCard] = React.useState({ name: '', link: '' });
 
   function closeAllPopups() {
     setIsUpdatePopupOpen(false);
@@ -25,7 +25,7 @@ export default function App() {
     setIsImageViewPopupOpen(false);
     setIsConfirmPopupOpen(false);
 
-    setSelectedCard('');
+    setSelectedCard({ name: '', link: '' });
   }
 
   function openUpdateAvatarPopup() {

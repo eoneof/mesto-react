@@ -1,12 +1,19 @@
 import React from 'react';
 
 export default function ImagePopup(props) {
-  const openedClassNameToggle = `${props.isOpen ? 'popup_opened' : ''}`;
+  const cardHasData = () => {
+    if ((props.selectedCard.name || props.selectedCard.link) !== '') {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const openedClassNameToggle = `${cardHasData() && props.isOpen ? 'popup_opened' : ''}`;
 
   return (
     <>
-      <section
-        className={`popup popup_type_${props.popupType} ${openedClassNameToggle}`}>
+      <section className={`popup popup_type_${props.popupType} ${openedClassNameToggle}`}>
         <div className='popup__container'>
           <button
             className='button popup__close-button'
@@ -19,7 +26,7 @@ export default function ImagePopup(props) {
           <figure className='preview'>
             <img
               className='preview__image'
-              src={props.selectedCard.link} // FIXME React warning: invalid value for prop `src` on <img> tag...
+              src={props.selectedCard.link}
               alt={props.selectedCard.name}
             />
             <figcaption className='preview__caption'>
