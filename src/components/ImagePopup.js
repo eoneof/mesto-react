@@ -1,7 +1,15 @@
 import React from 'react';
 
 export default function ImagePopup(props) {
-  const openedClassNameToggle = `${props.isOpen ? 'popup_opened' : ''}`;
+  const cardHasData = () => {
+    if ((props.selectedCard.name || props.selectedCard.link) !== '') {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const openedClassNameToggle = `${cardHasData() && props.isOpen ? 'popup_opened' : ''}`;
 
   return (
     <>
@@ -16,7 +24,11 @@ export default function ImagePopup(props) {
             Закрыть
           </button>
           <figure className='preview'>
-            <img className='preview__image' src={''} alt={props.selectedCard.name} />
+            <img
+              className='preview__image'
+              src={props.selectedCard.link}
+              alt={props.selectedCard.name}
+            />
             <figcaption className='preview__caption'>
               {props.selectedCard.name}
             </figcaption>
