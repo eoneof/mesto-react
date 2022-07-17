@@ -8,7 +8,7 @@
     this._likes = apiConfig.likesURL;
   }
 
-  getUser() {
+  getUserInfo() {
     return fetch(`${this._server}/${this._user}`, {
       method: 'GET',
       headers: this._headers,
@@ -17,7 +17,7 @@
     });
   }
 
-  setUser(data) {
+  setUserInfo(data) {
     return fetch(`${this._server}/${this._user}`, {
       method: 'PATCH',
       headers: this._headers,

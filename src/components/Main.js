@@ -4,12 +4,15 @@ import Api from '../utils/Api.js';
 import * as utils from '../utils/utils.js';
 import * as consts from '../utils/constants.js';
 import avatarPlaceHolderImage from '../images/avatar-placeholder.svg';
+import { CurrentUserContext } from './contexts/CurrentUserContext.js';
 
 export default function Main(props) {
-  const [userID, setUserID] = React.useState('');
+  const currentUser = React.useContext(CurrentUserContext);
+  // TODO remove next 3 lines
   const [userName, setUserName] = React.useState('Имя Пользователя');
   const [userDescription, setUserDescription] = React.useState('Описание');
   const [userAvatar, setUserAvatar] = React.useState(avatarPlaceHolderImage);
+  // end TODO
   const [cards, setCards] = React.useState([]);
 
   // hide everything but header until data is fetched
@@ -18,13 +21,14 @@ export default function Main(props) {
 
   const api = new Api(consts.apiConfig);
 
-  function getAllData() {
-    Promise.all([api.getUser(), api.getAllCards()])
-      .then(([remoteUserData, remoteCardsData]) => {
-        setUserID(remoteUserData._id);
-        setUserName(remoteUserData.name);
-        setUserDescription(remoteUserData.about);
-        setUserAvatar(remoteUserData.avatar);
+  function getCadsData() {
+    api
+      .getAllCards()
+      .then((remoteCardsData) => {
+        // TODO remove next 3 lines
+        setUserName(currentUser.name);
+        setUserDescription(currentUser.about);
+        setUserAvatar(currentUser.avatar);
         setCards(remoteCardsData);
       })
       .then(() => {
@@ -36,7 +40,7 @@ export default function Main(props) {
   }
 
   React.useEffect(() => {
-    getAllData();
+    getCadsData();
   }, []);
 
   return (
@@ -98,7 +102,7 @@ export default function Main(props) {
               // clone Card child from App
               return React.cloneElement(props.cardComponent, {
                 key: card._id,
-                userID: userID,
+                userID: currentUser._id,
                 cardData: card,
                 onCardThumbClick: props.onCardThumbClick,
                 onDeleteButtonClick: props.onDeleteButtonClick,
