@@ -8,6 +8,8 @@ import { CurrentUserContext } from './contexts/CurrentUserContext.js';
 
 export default function Main(props) {
   const currentUser = React.useContext(CurrentUserContext);
+
+  // store cards array from server
   const [cards, setCards] = React.useState([]);
 
   // hide everything but header until data is fetched
@@ -28,6 +30,13 @@ export default function Main(props) {
       .catch((err) => {
         utils.requestErrorHandler(err);
       });
+  }
+
+  function handleCardLike(card) {
+    // const isLiked = card.likes.some((liker) => liker._id === currentUser._id);
+    api.likeCard(card._id).then((newCard) => {
+      setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
+    });
   }
 
   React.useEffect(() => {
@@ -100,6 +109,7 @@ export default function Main(props) {
                 cardData: card,
                 onCardThumbClick: props.onCardThumbClick,
                 onDeleteButtonClick: props.onDeleteButtonClick,
+                onCardLike: handleCardLike,
                 dataIsLoaded: cardDataIsLoaded,
               });
             })}

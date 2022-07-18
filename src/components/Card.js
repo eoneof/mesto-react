@@ -1,11 +1,10 @@
 import React from 'react';
 import { CurrentUserContext } from './contexts/CurrentUserContext.js';
 
-
 export default function Card(props) {
   const currentUser = React.useContext(CurrentUserContext);
 
-    const [hasLikes, setHasLikes] = React.useState(false);
+  const [hasLikes, setHasLikes] = React.useState(false);
   const [isLiked, setIsLiked] = React.useState(false);
 
   function openImageView() {
@@ -26,6 +25,11 @@ export default function Card(props) {
     if (props.cardData.likes.some((liker) => liker._id === currentUser._id)) {
       setIsLiked(true);
     }
+  }
+
+  function handleCardLike() {
+    props.onCardLike(props.cardData);
+    // TODO change like view on update
   }
 
   React.useEffect(() => {
@@ -67,7 +71,8 @@ export default function Card(props) {
               }`}
               type='button'
               name='like-button'
-              title='Нравится!'></button>
+              title='Нравится!'
+              onClick={handleCardLike}></button>
             <span
               className={`card__like-counter ${
                 hasLikes && 'card__like-counter_visible'
