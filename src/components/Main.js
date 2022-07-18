@@ -11,8 +11,8 @@ export default function Main(props) {
   const [cards, setCards] = React.useState([]);
 
   // hide everything but header until data is fetched
-  const [dataIsLoaded, setDataIsLoaded] = React.useState(false);
-  const hiddenClassNameToggle = `${!dataIsLoaded ? 'hidden' : ''}`;
+  const [cardDataIsLoaded, setCardDataIsLoaded] = React.useState(false);
+  const hiddenClassNameToggle = `${!cardDataIsLoaded ? 'hidden' : ''}`;
 
   const api = new Api(consts.apiConfig);
 
@@ -23,7 +23,7 @@ export default function Main(props) {
         setCards(remoteCardsData);
       })
       .then(() => {
-        setDataIsLoaded(true);
+        setCardDataIsLoaded(true);
       })
       .catch((err) => {
         utils.requestErrorHandler(err);
@@ -38,7 +38,7 @@ export default function Main(props) {
     <>
       <main className='main'>
         {React.cloneElement(props.preloaderComponent, {
-          dataIsLoaded: dataIsLoaded,
+          dataIsLoaded: cardDataIsLoaded,
         })}
 
         {/* <!-- PROFILE --> */}
@@ -58,7 +58,11 @@ export default function Main(props) {
               <img
                 className='profile__photo'
                 alt='Фотография пользователя.'
-                src={currentUser.avatar}
+                src={
+                  props.userDataIsLoaded
+                    ? currentUser.avatar
+                    : avatarPlaceHolderImage // TODO move to CSS bg image
+                }
               />
             </div>
             <div className='profile__main'>
@@ -93,11 +97,10 @@ export default function Main(props) {
               // clone Card child from App
               return React.cloneElement(props.cardComponent, {
                 key: card._id,
-                userID: currentUser._id,
                 cardData: card,
                 onCardThumbClick: props.onCardThumbClick,
                 onDeleteButtonClick: props.onDeleteButtonClick,
-                dataIsLoaded: dataIsLoaded,
+                dataIsLoaded: cardDataIsLoaded,
               });
             })}
           </ul>

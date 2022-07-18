@@ -1,7 +1,11 @@
 import React from 'react';
+import { CurrentUserContext } from './contexts/CurrentUserContext.js';
+
 
 export default function Card(props) {
-  const [hasLikes, setHasLikes] = React.useState(false);
+  const currentUser = React.useContext(CurrentUserContext);
+
+    const [hasLikes, setHasLikes] = React.useState(false);
   const [isLiked, setIsLiked] = React.useState(false);
 
   function openImageView() {
@@ -19,7 +23,7 @@ export default function Card(props) {
   }
 
   function checkIsLiked() {
-    if (props.cardData.likes.some((liker) => liker._id === props.userID)) {
+    if (props.cardData.likes.some((liker) => liker._id === currentUser._id)) {
       setIsLiked(true);
     }
   }
