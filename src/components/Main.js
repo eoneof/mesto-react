@@ -8,11 +8,6 @@ import { CurrentUserContext } from './contexts/CurrentUserContext.js';
 
 export default function Main(props) {
   const currentUser = React.useContext(CurrentUserContext);
-  // TODO remove next 3 lines
-  const [userName, setUserName] = React.useState('Имя Пользователя');
-  const [userDescription, setUserDescription] = React.useState('Описание');
-  const [userAvatar, setUserAvatar] = React.useState(avatarPlaceHolderImage);
-  // end TODO
   const [cards, setCards] = React.useState([]);
 
   // hide everything but header until data is fetched
@@ -25,10 +20,6 @@ export default function Main(props) {
     api
       .getAllCards()
       .then((remoteCardsData) => {
-        // TODO remove next 3 lines
-        setUserName(currentUser.name);
-        setUserDescription(currentUser.about);
-        setUserAvatar(currentUser.avatar);
         setCards(remoteCardsData);
       })
       .then(() => {
@@ -67,13 +58,13 @@ export default function Main(props) {
               <img
                 className='profile__photo'
                 alt='Фотография пользователя.'
-                src={userAvatar}
+                src={currentUser.avatar}
               />
             </div>
             <div className='profile__main'>
               <div className='profile__headings'>
                 <div className='profile__header'>
-                  <h1 className='profile__name'>{userName}</h1>
+                  <h1 className='profile__name'>{currentUser.name}</h1>
                   <button
                     className='button profile__edit-button'
                     type='button'
@@ -81,7 +72,7 @@ export default function Main(props) {
                     title='Редактировать профиль'
                     onClick={props.onEditProfile}></button>
                 </div>
-                <p className='profile__about'>{userDescription}</p>
+                <p className='profile__about'>{currentUser.about}</p>
               </div>
             </div>
           </div>
