@@ -56,7 +56,8 @@ export default function Main(props) {
     <>
       <main className='main'>
         {React.cloneElement(props.preloaderComponent, {
-          dataIsLoaded: cardDataIsLoaded,
+          // hide preloader
+          dataIsLoaded: cardDataIsLoaded && props.userDataIsLoaded,
         })}
 
         {/* <!-- PROFILE --> */}

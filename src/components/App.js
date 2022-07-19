@@ -6,6 +6,9 @@ import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
 import Preloader from './Preloader.js';
+import EditAvatarPopup from './EditAvatarPopup.js';
+import EditProfilePopup from './EditProfilePopup.js';
+import AddPlacePopup from './AddPlacePopup.js';
 import PopupWithForm from './PopupWithForm.js';
 import ImagePopup from './ImagePopup.js';
 import Card from './Card.js';
@@ -100,7 +103,7 @@ export default function App() {
         <Footer />
 
         {/* EDIT */}
-        <PopupWithForm
+        <EditProfilePopup
           formTitle='Редактировать профиль'
           popupType='edit'
           isOpen={isEditPopupOpen}
@@ -134,10 +137,10 @@ export default function App() {
               </div>
             </fieldset>
           </>
-        </PopupWithForm>
+        </EditProfilePopup>
 
         {/* ADD */}
-        <PopupWithForm
+        <AddPlacePopup
           formTitle='Новое место'
           popupType='add'
           submitButtonText='Сохранить'
@@ -173,10 +176,10 @@ export default function App() {
               </div>
             </fieldset>
           </>
-        </PopupWithForm>
+        </AddPlacePopup>
 
         {/* UPDATE */}
-        <PopupWithForm
+        <EditAvatarPopup
           formTitle='Обновить аватар'
           popupType='update'
           submitButtonText='Сохранить'
@@ -197,7 +200,7 @@ export default function App() {
               </div>
             </fieldset>
           </>
-        </PopupWithForm>
+        </EditAvatarPopup>
 
         {/* CONFIRM */}
         <PopupConfirm

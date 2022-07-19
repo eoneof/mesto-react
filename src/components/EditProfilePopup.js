@@ -1,6 +1,9 @@
 import React from 'react';
+import { CurrentUserContext } from './contexts/CurrentUserContext.js';
 
-export default function PopupWithForm(props) {
+export default function EditProfilePopup(props) {
+  const currentUser = React.useContext(CurrentUserContext);
+
   const openedClassNameToggle = `${props.isOpen ? 'popup_opened' : ''}`;
 
   return (
@@ -24,7 +27,7 @@ export default function PopupWithForm(props) {
             <h2 className='form__header'>{props.formTitle}</h2>
 
             {props.children}
-            
+
             <button
               className='button form__submit-button'
               type='submit'
