@@ -4,8 +4,10 @@ import { CurrentUserContext } from './contexts/CurrentUserContext.js';
 export default function Card(props) {
   const currentUser = React.useContext(CurrentUserContext);
 
-  const [hasLikes, setHasLikes] = React.useState(false);
-  const [isLiked, setIsLiked] = React.useState(false);
+  const hasLikes = props.cardData.likes.length > 0;
+  const isLiked = props.cardData.likes.some(
+    (liker) => liker._id === currentUser._id,
+  );
 
   function openImageView() {
     props.onCardThumbClick(props.cardData);
@@ -15,27 +17,10 @@ export default function Card(props) {
     props.onDeleteButtonClick();
   }
 
-  function checkHasLikes() {
-    if (props.cardData.likes.length > 0) {
-      setHasLikes(true);
-    }
-  }
-
-  function checkIsLiked() {
-    if (props.cardData.likes.some((liker) => liker._id === currentUser._id)) {
-      setIsLiked(true);
-    }
-  }
-
   function handleCardLike() {
     props.onCardLike(props.cardData);
     // TODO change like view on update
   }
-
-  React.useEffect(() => {
-    checkHasLikes();
-    checkIsLiked();
-  }, []);
 
   return (
     <>
