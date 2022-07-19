@@ -34,8 +34,17 @@ export default function Main(props) {
 
   function handleCardLike(card) {
     const isLiked = card.likes.some((liker) => liker._id === currentUser._id);
+
     api.toggleCardLike(card._id, isLiked).then((newCard) => {
-      setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
+      setCards((state) =>
+        state.map((item) => (item._id === card._id ? newCard : item)),
+      );
+    });
+  }
+
+  function handleCardDelete(card) {
+    api.deleteCard(card._id).then((newCards) => {
+      setCards((newCards) => newCards.filter((item) => item._id !== card._id));
     });
   }
 
@@ -108,7 +117,9 @@ export default function Main(props) {
                 key: card._id,
                 cardData: card,
                 onCardThumbClick: props.onCardThumbClick,
-                onDeleteButtonClick: props.onDeleteButtonClick,
+                // from App.js
+                // onDeleteButtonClick: props.onDeleteButtonClick, // TODO confirmation popup
+                onDeleteButtonClick: handleCardDelete,
                 onCardLike: handleCardLike,
                 dataIsLoaded: cardDataIsLoaded,
               });

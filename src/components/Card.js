@@ -13,13 +13,17 @@ export default function Card(props) {
     props.onCardThumbClick(props.cardData);
   }
 
-  function openDeleteConfirmPopup() {
-    props.onDeleteButtonClick();
+  // TODO confirmation popup
+  // function openDeleteConfirmPopup() {
+  //   props.onDeleteButtonClick();
+  // }
+
+  function handleCardDelete() {
+    props.onDeleteButtonClick(props.cardData);
   }
 
   function handleCardLike() {
     props.onCardLike(props.cardData);
-    // TODO change like view on update
   }
 
   return (
@@ -33,7 +37,8 @@ export default function Card(props) {
           type='button'
           name='delete-button'
           title='Удалить'
-          onClick={openDeleteConfirmPopup}>
+          // onClick={openDeleteConfirmPopup}> // TODO confirmation popup
+          onClick={handleCardDelete}>
           Удалить
         </button>
         <div className='card__image-container'>

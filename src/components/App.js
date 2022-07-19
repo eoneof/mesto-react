@@ -94,7 +94,7 @@ export default function App() {
           onEditProfile={openEditProfilePopup}
           onAddCard={openNewCardPopup}
           onCardThumbClick={openImageViewPopup}
-          onDeleteButtonClick={openConfirmDeletePopup}
+          // onDeleteButtonClick={openConfirmDeletePopup} // TODO confirmation popup
         />
 
         <Footer />
