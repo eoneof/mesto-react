@@ -33,8 +33,8 @@ export default function Main(props) {
   }
 
   function handleCardLike(card) {
-    // const isLiked = card.likes.some((liker) => liker._id === currentUser._id);
-    api.likeCard(card._id).then((newCard) => {
+    const isLiked = card.likes.some((liker) => liker._id === currentUser._id);
+    api.toggleCardLike(card._id, isLiked).then((newCard) => {
       setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
     });
   }

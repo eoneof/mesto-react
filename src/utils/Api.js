@@ -65,19 +65,9 @@
     });
   }
 
-  likeCard(id) {
+  toggleCardLike(id, isLiked) {
     return fetch(`${this._server}/${this._cards}/${id}/${this._likes}`, {
-      method: 'PUT',
-      headers: this._headers,
-      // body: data,
-    }).then((res) => {
-      return this._handleResponse(res);
-    });
-  }
-
-  unlikeCard(id) {
-    return fetch(`${this._server}/${this._cards}/${id}/${this._likes}`, {
-      method: 'DELETE',
+      method: !isLiked ? 'PUT' : 'DELETE',
       headers: this._headers,
     }).then((res) => {
       return this._handleResponse(res);
