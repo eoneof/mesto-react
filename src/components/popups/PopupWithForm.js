@@ -12,7 +12,7 @@ export default function PopupWithForm(props) {
           type='button'
           name='close-button'
           title='Закрыть'
-          onClick={props.closeAllPopups}>
+          onClick={props.onClose}>
           Закрыть
         </button>
         <form
@@ -35,7 +35,7 @@ export default function PopupWithForm(props) {
           </button>
         </form>
       </div>
-      <div className='popup__backdrop' onClick={props.closeAllPopups}></div>
+      <div className='popup__backdrop' onClick={props.onClose}></div>
     </section>
   );
 }

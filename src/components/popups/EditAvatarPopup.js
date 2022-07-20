@@ -11,7 +11,7 @@ export default function EditAvatarPopup(props) {
       popupType='update'
       submitButtonText='Сохранить'
       isOpen={props.isOpen}
-      closeAllPopups={props.closeAllPopups}>
+      onClose={props.onClose}>
       <fieldset className='form__fieldset'>
         <div className='form__input-container'>
           <input

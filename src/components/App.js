@@ -98,35 +98,15 @@ export default function App() {
           onCardThumbClick={openImageViewPopup}
           // onDeleteButtonClick={openConfirmDeletePopup} // TODO confirmation popup
         />
-
         <Footer />
-
-        <EditProfilePopup
-          isOpen={isEditPopupOpen}
-          closeAllPopups={closeAllPopups}
-        />
-
-        <AddPlacePopup
-          isOpen={isAddPopupOpen}
-          closeAllPopups={closeAllPopups}
-        />
-
-        <EditAvatarPopup
-          isOpen={isUpdatePopupOpen}
-          closeAllPopups={closeAllPopups}
-        />
-
-        {/* CONFIRM */}
-        <PopupConfirm
-          isOpen={isConfirmPopupOpen}
-          closeAllPopups={closeAllPopups}
-        />
-
-        {/* IMAGE VIEW */}
+        <EditAvatarPopup isOpen={isUpdatePopupOpen} onClose={closeAllPopups} />
+        <EditProfilePopup isOpen={isEditPopupOpen} onClose={closeAllPopups} />
+        <AddPlacePopup isOpen={isAddPopupOpen} onClose={closeAllPopups} />
+        <PopupConfirm isOpen={isConfirmPopupOpen} onClose={closeAllPopups} />
         <ImagePopup
           selectedCard={selectedCard}
           isOpen={isImageViewPopupOpen}
-          closeAllPopups={closeAllPopups}
+          onClose={closeAllPopups}
         />
       </div>
     </CurrentUserContext.Provider>

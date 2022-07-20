@@ -9,6 +9,6 @@ export default function PopupConfirm(props) {
       formTitle='Вы уверены?'
       submitButtonText='Да'
       isOpen={props.isOpen}
-      closeAllPopups={props.closeAllPopups}></PopupWithForm>
+      onClose={props.onClose}></PopupWithForm>
   );
 }
