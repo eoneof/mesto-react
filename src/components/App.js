@@ -18,8 +18,8 @@ import { CurrentUserContext } from './contexts/CurrentUserContext.js';
 export default function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   // hide everything but header until data is fetched
-  // TODO pass to Preloader.js
-  // TODO rewrite as context
+  // TODO merge these two
+  const [cardDataIsLoaded, setCardDataIsLoaded] = React.useState(false);
   const [userDataIsLoaded, setUserDataIsLoaded] = React.useState(false);
 
   const [isAddPopupOpen, setIsAddPopoupOpen] = React.useState(false);
@@ -28,12 +28,29 @@ export default function App() {
   const [isImageViewPopupOpen, setIsImageViewPopupOpen] = React.useState(false);
   const [isConfirmPopupOpen, setIsConfirmPopupOpen] = React.useState(false);
 
+  const [cards, setCards] = React.useState([]);
+  // hide everything but header until data is fetched
+
   const [selectedCard, setSelectedCard] = React.useState({
     name: '',
     link: '',
   });
 
   const api = new Api(consts.apiConfig);
+
+  function getCadsData() {
+    api
+      .getAllCards()
+      .then((remoteCardsData) => {
+        setCards(remoteCardsData);
+      })
+      .then(() => {
+        setCardDataIsLoaded(true);
+      })
+      .catch((err) => {
+        utils.requestErrorHandler(err);
+      });
+  }
 
   function getUserData() {
     api
@@ -47,6 +64,22 @@ export default function App() {
       .catch((err) => {
         utils.requestErrorHandler(err);
       });
+  }
+
+  function handleCardLike(card) {
+    const isLiked = card.likes.some((liker) => liker._id === currentUser._id);
+
+    api.toggleCardLike(card._id, isLiked).then((newCard) => {
+      setCards((state) =>
+        state.map((item) => (item._id === card._id ? newCard : item)),
+      );
+    });
+  }
+
+  function handleCardDelete(card) {
+    api.deleteCard(card._id).then((newCards) => {
+      setCards((newCards) => newCards.filter((item) => item._id !== card._id));
+    });
   }
 
   function onSubmitUser(values) {
@@ -73,6 +106,7 @@ export default function App() {
 
   React.useEffect(() => {
     getUserData();
+    getCadsData();
   }, []);
 
   function closeAllPopups() {
@@ -112,6 +146,10 @@ export default function App() {
         <Header />
         <Main
           cardComponent={<Card />}
+          cards={cards}
+          cardDataIsLoaded={cardDataIsLoaded}
+          onCardLike={handleCardLike}
+          onCardDelete={handleCardDelete}
           preloaderComponent={<Preloader />}
           userDataIsLoaded={userDataIsLoaded}
           onClick={openUpdateAvatarPopup}

@@ -9,55 +9,16 @@ import { CurrentUserContext } from './contexts/CurrentUserContext.js';
 export default function Main(props) {
   const currentUser = React.useContext(CurrentUserContext);
 
-  // store cards array from server
-  const [cards, setCards] = React.useState([]);
-
-  // hide everything but header until data is fetched
-  const [cardDataIsLoaded, setCardDataIsLoaded] = React.useState(false);
-  const hiddenClassNameToggle = `${!cardDataIsLoaded ? 'hidden' : ''}`;
+  const hiddenClassNameToggle = `${!props.cardDataIsLoaded ? 'hidden' : ''}`;
 
   const api = new Api(consts.apiConfig);
-
-  function getCadsData() {
-    api
-      .getAllCards()
-      .then((remoteCardsData) => {
-        setCards(remoteCardsData);
-      })
-      .then(() => {
-        setCardDataIsLoaded(true);
-      })
-      .catch((err) => {
-        utils.requestErrorHandler(err);
-      });
-  }
-
-  function handleCardLike(card) {
-    const isLiked = card.likes.some((liker) => liker._id === currentUser._id);
-
-    api.toggleCardLike(card._id, isLiked).then((newCard) => {
-      setCards((state) =>
-        state.map((item) => (item._id === card._id ? newCard : item)),
-      );
-    });
-  }
-
-  function handleCardDelete(card) {
-    api.deleteCard(card._id).then((newCards) => {
-      setCards((newCards) => newCards.filter((item) => item._id !== card._id));
-    });
-  }
-
-  React.useEffect(() => {
-    getCadsData();
-  }, []);
 
   return (
     <>
       <main className='main'>
         {React.cloneElement(props.preloaderComponent, {
           // hide preloader
-          dataIsLoaded: cardDataIsLoaded && props.userDataIsLoaded,
+          dataIsLoaded: props.cardDataIsLoaded && props.userDataIsLoaded,
         })}
 
         {/* <!-- PROFILE --> */}
@@ -112,7 +73,7 @@ export default function Main(props) {
           className={`photos ${hiddenClassNameToggle}`}
           aria-label='Фотографии пользователя'>
           <ul className='cards-grid'>
-            {cards.map((card) => {
+            {props.cards.map((card) => {
               // clone Card child from App
               return React.cloneElement(props.cardComponent, {
                 key: card._id,
@@ -120,9 +81,9 @@ export default function Main(props) {
                 onCardThumbClick: props.onCardThumbClick,
                 // from App.js
                 // onDeleteButtonClick: props.onDeleteButtonClick, // TODO confirmation popup
-                onDeleteButtonClick: handleCardDelete,
-                onCardLike: handleCardLike,
-                dataIsLoaded: cardDataIsLoaded,
+                onDeleteButtonClick: props.onCardDelete,
+                onCardLike: props.onCardLike,
+                dataIsLoaded: props.cardDataIsLoaded,
               });
             })}
           </ul>
