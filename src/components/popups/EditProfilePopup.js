@@ -6,7 +6,16 @@ import PopupWithForm from './PopupWithForm.js';
 export default function EditProfilePopup(props) {
   const currentUser = React.useContext(CurrentUserContext);
   const [values, setValues] = React.useState({ name: '', about: '' });
-  const inputRef = useRef(null);
+  const { nameInputRef, aboutInputRef } = useRef(null);
+
+  function setInitialValues() {
+    setValues(() => {
+      return {
+        name: currentUser.name,
+        about: currentUser.about,
+      };
+    });
+  }
 
   function handleChanges(evt) {
     // extract target input's attributes
@@ -21,15 +30,18 @@ export default function EditProfilePopup(props) {
 
   function handleSubmit(evt) {
     evt.preventDefault();
+    props.onUpdateUser(values);
+    props.onClose();
+    setInitialValues();
+  }
+
+  function handleClose() {
+    // TODO reset inputs
+    props.onClose();
   }
 
   React.useEffect(() => {
-    setValues(() => {
-      return {
-        name: currentUser.name,
-        about: currentUser.about,
-      };
-    });
+    setInitialValues();
   }, [currentUser]);
 
   return (
@@ -38,7 +50,7 @@ export default function EditProfilePopup(props) {
       popupType='edit'
       submitButtonText='Сохранить'
       isOpen={props.isOpen}
-      onClose={props.onClose}
+      onClose={handleClose}
       onSubmit={handleSubmit}>
       {/* children */}
       <fieldset className='form__fieldset'>
@@ -52,7 +64,7 @@ export default function EditProfilePopup(props) {
             maxLength='40'
             placeholder='Как вас зовут?'
             onChange={handleChanges}
-            ref={inputRef}
+            ref={nameInputRef}
             defaultValue={values.name}
             required
           />
@@ -68,7 +80,7 @@ export default function EditProfilePopup(props) {
             maxLength='200'
             placeholder='Напишите что-нибудь о себе'
             onChange={handleChanges}
-            ref={inputRef}
+            ref={aboutInputRef}
             defaultValue={values.about}
             required
           />

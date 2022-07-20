@@ -49,6 +49,18 @@ export default function App() {
       });
   }
 
+  function onUpdateUser(values) {
+    console.log('👉values:', values);
+    api
+      .setUserInfo(values)
+      .then((remoteUserData) => {
+        setCurrentUser(remoteUserData);
+      })
+      .catch((err) => {
+        utils.requestErrorHandler(err);
+      });
+  }
+
   React.useEffect(() => {
     getUserData();
   }, []);
@@ -100,7 +112,11 @@ export default function App() {
         />
         <Footer />
         <EditAvatarPopup isOpen={isUpdatePopupOpen} onClose={closeAllPopups} />
-        <EditProfilePopup isOpen={isEditPopupOpen} onClose={closeAllPopups} />
+        <EditProfilePopup
+          isOpen={isEditPopupOpen}
+          onClose={closeAllPopups}
+          onUpdateUser={onUpdateUser}
+        />
         <AddPlacePopup isOpen={isAddPopupOpen} onClose={closeAllPopups} />
         <PopupConfirm isOpen={isConfirmPopupOpen} onClose={closeAllPopups} />
         <ImagePopup

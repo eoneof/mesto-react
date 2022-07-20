@@ -19,7 +19,8 @@ export default function PopupWithForm(props) {
           noValidate
           className='form'
           id={props.popupType}
-          name={props.popupType}>
+          name={props.popupType}
+          onSubmit={props.onSubmit}>
           <h2 className='form__header'>{props.formTitle}</h2>
 
           {props.children}
@@ -28,8 +29,7 @@ export default function PopupWithForm(props) {
             className='button form__submit-button'
             type='submit'
             name='submit-button'
-            form={props.popupType}
-            onSubmit={props.onSubmit}>
+            form={props.popupType}>
             {props.submitButtonText}
           </button>
         </form>
