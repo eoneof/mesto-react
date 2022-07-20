@@ -1,19 +1,25 @@
 import React from 'react';
 
 export default function ImagePopup(props) {
+  const popupType = 'view';
+
   const cardHasData = () => {
-    if ((props.selectedCard.link && props.selectedCard.link) === ('' && undefined)) {
+    if (
+      (props.selectedCard.link && props.selectedCard.link) === ('' && undefined)
+    ) {
       return false;
     } else {
       return true;
     }
   };
 
-  const openedClassNameToggle = `${cardHasData() && props.isOpen ? 'popup_opened' : ''}`;
+  const openedClassName = `${
+    cardHasData() && props.isOpen ? 'popup_opened' : ''
+  }`;
 
   return (
     <>
-      <section className={`popup popup_type_${props.popupType} ${openedClassNameToggle}`}>
+      <section className={`popup popup_type_${popupType} ${openedClassName}`}>
         <div className='popup__container'>
           <button
             className='button popup__close-button'

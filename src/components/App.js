@@ -6,13 +6,12 @@ import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
 import Preloader from './Preloader.js';
-import EditAvatarPopup from './EditAvatarPopup.js';
-import EditProfilePopup from './EditProfilePopup.js';
-import AddPlacePopup from './AddPlacePopup.js';
-import PopupWithForm from './PopupWithForm.js';
-import ImagePopup from './ImagePopup.js';
+import EditAvatarPopup from './popups/EditAvatarPopup.js';
+import EditProfilePopup from './popups/EditProfilePopup.js';
+import AddPlacePopup from './popups/AddPlacePopup.js';
+import ImagePopup from './popups/ImagePopup.js';
+import PopupConfirm from './popups/PopupConfirm.js';
 import Card from './Card.js';
-import PopupConfirm from './PopupConfirm.js';
 import Api from '../utils/Api.js';
 import { CurrentUserContext } from './contexts/CurrentUserContext.js';
 
@@ -102,118 +101,29 @@ export default function App() {
 
         <Footer />
 
-        {/* EDIT */}
         <EditProfilePopup
-          formTitle='Редактировать профиль'
-          popupType='edit'
           isOpen={isEditPopupOpen}
-          submitButtonText='Сохранить'
-          closeAllPopups={closeAllPopups}>
-          <>
-            <fieldset className='form__fieldset'>
-              <div className='form__input-container'>
-                <input
-                  className='form__input'
-                  id='photoNameInput'
-                  name='name'
-                  type='text'
-                  minLength='2'
-                  maxLength='30'
-                  placeholder='Как вас зовут?'
-                  required
-                />
-                <span className='form__input-error-hint name-input-error'></span>
-              </div>
-              <div className='form__input-container'>
-                <input
-                  className='form__input'
-                  id='photoLinkInput'
-                  name='link'
-                  type='url'
-                  placeholder='Напишите что-нибудь о себе'
-                  required
-                />
-                <span className='form__input-error-hint link-input-error'></span>
-              </div>
-            </fieldset>
-          </>
-        </EditProfilePopup>
+          closeAllPopups={closeAllPopups}
+        />
 
-        {/* ADD */}
         <AddPlacePopup
-          formTitle='Новое место'
-          popupType='add'
-          submitButtonText='Сохранить'
           isOpen={isAddPopupOpen}
-          closeAllPopups={closeAllPopups}>
-          <>
-            <fieldset className='form__fieldset'>
-              <div className='form__input-container'>
-                <input
-                  className='form__input'
-                  id='nameInput'
-                  name='name'
-                  type='text'
-                  minLength='2'
-                  maxLength='40'
-                  placeholder='Название'
-                  required
-                />
-                <span className='form__input-error-hint name-input-error'></span>
-              </div>
-              <div className='form__input-container'>
-                <input
-                  className='form__input'
-                  id='aboutInput'
-                  name='about'
-                  type='text'
-                  minLength='2'
-                  maxLength='200'
-                  placeholder='Ссылка на картинку'
-                  required
-                />
-                <span className='form__input-error-hint about-input-error'></span>
-              </div>
-            </fieldset>
-          </>
-        </AddPlacePopup>
+          closeAllPopups={closeAllPopups}
+        />
 
-        {/* UPDATE */}
         <EditAvatarPopup
-          formTitle='Обновить аватар'
-          popupType='update'
-          submitButtonText='Сохранить'
           isOpen={isUpdatePopupOpen}
-          closeAllPopups={closeAllPopups}>
-          <>
-            <fieldset className='form__fieldset'>
-              <div className='form__input-container'>
-                <input
-                  className='form__input'
-                  id='updateInput'
-                  name='avatar'
-                  type='url'
-                  placeholder='Ссылка на картинку'
-                  required
-                />
-                <span className='form__input-error-hint avatar-input-error'></span>
-              </div>
-            </fieldset>
-          </>
-        </EditAvatarPopup>
+          closeAllPopups={closeAllPopups}
+        />
 
         {/* CONFIRM */}
         <PopupConfirm
-          popupType='confirm'
-          formTitle='Вы уверены?'
-          submitButtonText='Да'
           isOpen={isConfirmPopupOpen}
           closeAllPopups={closeAllPopups}
         />
 
         {/* IMAGE VIEW */}
         <ImagePopup
-          popupType='view'
           selectedCard={selectedCard}
           isOpen={isImageViewPopupOpen}
           closeAllPopups={closeAllPopups}
