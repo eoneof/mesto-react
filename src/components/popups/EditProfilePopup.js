@@ -1,15 +1,12 @@
 import React from 'react';
+import { useRef } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 import PopupWithForm from './PopupWithForm.js';
-
-// const initialValues = {
-//   name: '',
-//   description: '',
-// };
 
 export default function EditProfilePopup(props) {
   const currentUser = React.useContext(CurrentUserContext);
   const [values, setValues] = React.useState({ name: '', about: '' });
+  const inputRef = useRef(null);
 
   function handleChanges(evt) {
     // extract target input's attributes
@@ -54,8 +51,10 @@ export default function EditProfilePopup(props) {
             minLength='2'
             maxLength='40'
             placeholder='Как вас зовут?'
-            required
             onChange={handleChanges}
+            ref={inputRef}
+            defaultValue={values.name}
+            required
           />
           <span className='form__input-error-hint name-input-error'></span>
         </div>
@@ -69,6 +68,8 @@ export default function EditProfilePopup(props) {
             maxLength='200'
             placeholder='Напишите что-нибудь о себе'
             onChange={handleChanges}
+            ref={inputRef}
+            defaultValue={values.about}
             required
           />
           <span className='form__input-error-hint link-input-error'></span>
