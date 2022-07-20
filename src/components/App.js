@@ -49,10 +49,20 @@ export default function App() {
       });
   }
 
-  function onUpdateUser(values) {
-    console.log('👉values:', values);
+  function onSubmitUser(values) {
     api
       .setUserInfo(values)
+      .then((remoteUserData) => {
+        setCurrentUser(remoteUserData);
+      })
+      .catch((err) => {
+        utils.requestErrorHandler(err);
+      });
+  }
+
+  function onSubmitAvatar(avatar) {
+    api
+      .setAvatar(avatar)
       .then((remoteUserData) => {
         setCurrentUser(remoteUserData);
       })
@@ -104,18 +114,22 @@ export default function App() {
           cardComponent={<Card />}
           preloaderComponent={<Preloader />}
           userDataIsLoaded={userDataIsLoaded}
-          onUpdateAvatar={openUpdateAvatarPopup}
+          onClick={openUpdateAvatarPopup}
           onEditProfile={openEditProfilePopup}
           onAddCard={openNewCardPopup}
           onCardThumbClick={openImageViewPopup}
           // onDeleteButtonClick={openConfirmDeletePopup} // TODO confirmation popup
         />
         <Footer />
-        <EditAvatarPopup isOpen={isUpdatePopupOpen} onClose={closeAllPopups} />
+        <EditAvatarPopup
+          isOpen={isUpdatePopupOpen}
+          onClose={closeAllPopups}
+          onSubmitAvatar={onSubmitAvatar}
+        />
         <EditProfilePopup
           isOpen={isEditPopupOpen}
           onClose={closeAllPopups}
-          onUpdateUser={onUpdateUser}
+          onUpdateUser={onSubmitUser}
         />
         <AddPlacePopup isOpen={isAddPopupOpen} onClose={closeAllPopups} />
         <PopupConfirm isOpen={isConfirmPopupOpen} onClose={closeAllPopups} />

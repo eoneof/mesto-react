@@ -73,7 +73,7 @@ export default function Main(props) {
               title='Изменить фотографию профиля'>
               <button
                 className='profile__photo-overlay'
-                onClick={props.onUpdateAvatar}></button>
+                onClick={props.onClick}></button>
               <img
                 className='profile__photo'
                 alt='Фотография пользователя.'
