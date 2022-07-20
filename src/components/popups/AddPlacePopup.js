@@ -17,11 +17,11 @@ export default function AddPlacePopup(props) {
         <div className='form__input-container'>
           <input
             className='form__input'
-            id='nameInput'
+            id='photoNameInput'
             name='name'
             type='text'
             minLength='2'
-            maxLength='40'
+            maxLength='30'
             placeholder='Название'
             required
           />
@@ -30,11 +30,9 @@ export default function AddPlacePopup(props) {
         <div className='form__input-container'>
           <input
             className='form__input'
-            id='aboutInput'
-            name='about'
-            type='text'
-            minLength='2'
-            maxLength='200'
+            id='photoLinkInput'
+            name='link'
+            type='url'
             placeholder='Ссылка на картинку'
             required
           />

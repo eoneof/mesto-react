@@ -29,8 +29,7 @@ export default function PopupWithForm(props) {
             type='submit'
             name='submit-button'
             form={props.popupType}
-            // onSubmit={ } // TODO submit
-          >
+            onSubmit={props.onSubmit}>
             {props.submitButtonText}
           </button>
         </form>
