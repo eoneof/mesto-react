@@ -16,11 +16,11 @@ import Api from '../utils/Api.js';
 import { CurrentUserContext } from './contexts/CurrentUserContext.js';
 
 export default function App() {
-  // hide everything but header until data is fetched
+  // show only header and spinner until data is fetched
   const [allDataIsLoaded, setAllDataIsLoaded] = React.useState(false);
 
   const [currentUser, setCurrentUser] = React.useState({});
-  const [cards, setCards] = React.useState([]);
+  const [cardsList, setCardsList] = React.useState([]);
 
   const [isAddPopupOpen, setIsAddPopoupOpen] = React.useState(false);
   const [isEditPopupOpen, setIsEditPopupOpen] = React.useState(false);
@@ -40,7 +40,7 @@ export default function App() {
     Promise.all([api.getUserInfo(), api.getCardsList()])
       .then(([remoteUserData, remoteCardsData]) => {
         setCurrentUser(remoteUserData);
-        setCards(remoteCardsData);
+        setCardsList(remoteCardsData);
       })
       .then(() => {
         setAllDataIsLoaded(true);
@@ -54,19 +54,21 @@ export default function App() {
     const isLiked = card.likes.some((liker) => liker._id === currentUser._id);
 
     api.toggleCardLike(card._id, isLiked).then((newCard) => {
-      setCards((state) => state.map((item) => (item._id === card._id ? newCard : item)));
+      setCardsList((state) =>
+        state.map((item) => (item._id === card._id ? newCard : item)),
+      );
     });
   }
 
   function handleCardDelete(card) {
     api.deleteCard(card._id).then((newCards) => {
-      setCards((newCards) => newCards.filter((item) => item._id !== card._id));
+      setCardsList((newCards) => newCards.filter((item) => item._id !== card._id));
     });
   }
 
-  function onSubmitUser(values) {
+  function handleUserInfoSubmit(inputValues) {
     api
-      .setUserInfo(values)
+      .setUserInfo(inputValues)
       .then((remoteUserData) => {
         setCurrentUser(remoteUserData);
       })
@@ -75,9 +77,9 @@ export default function App() {
       });
   }
 
-  function onSubmitAvatar(avatar) {
+  function handleAvatarSubmit(inputValue) {
     api
-      .setAvatar(avatar)
+      .setAvatar(inputValue)
       .then((remoteUserData) => {
         setCurrentUser(remoteUserData);
       })
@@ -86,9 +88,16 @@ export default function App() {
       });
   }
 
-  React.useEffect(() => {
-    getAllData();
-  }, []);
+  function handleNewPlaceSubmit(inputValues) {
+    api
+      .addCard(inputValues)
+      .then((remoteCardsData) => {
+        setCardsList([remoteCardsData, ...cardsList]);
+      })
+      .catch((err) => {
+        utils.requestErrorHandler(err);
+      });
+  }
 
   function closeAllPopups() {
     setIsUpdatePopupOpen(false);
@@ -112,49 +121,61 @@ export default function App() {
     setIsAddPopoupOpen(true);
   }
 
-  function openConfirmDeletePopup() {
-    setIsConfirmPopupOpen(true);
-  }
+  // TODO confirmation popup
+  // function openConfirmDeletePopup() {
+  //   setIsConfirmPopupOpen(true);
+  // }
 
   function openImageViewPopup(cardData) {
     setIsImageViewPopupOpen(true);
     setSelectedCard(cardData);
   }
 
+  React.useEffect(() => {
+    getAllData();
+  }, []);
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className='page'>
         <Header />
         <Main
-          cardComponent={<Card />}
-          cards={cards}
           allDataIsLoaded={allDataIsLoaded}
-          onCardLike={handleCardLike}
-          onCardDelete={handleCardDelete}
           preloaderComponent={<Preloader />}
-          onClick={openUpdateAvatarPopup}
+          // page buttons
+          onUpdateAvatar={openUpdateAvatarPopup}
           onEditProfile={openEditProfilePopup}
           onAddCard={openNewCardPopup}
+          // cards
+          cardComponent={<Card />}
+          cardsList={cardsList}
+          onCardLike={handleCardLike}
+          onCardDelete={handleCardDelete}
           onCardThumbClick={openImageViewPopup}
-          // onDeleteButtonClick={openConfirmDeletePopup} // TODO confirmation popup
+          // TODO confirmation popup
+          // onDeleteButtonClick={openConfirmDeletePopup}
         />
         <Footer />
         <EditAvatarPopup
           isOpen={isUpdatePopupOpen}
           onClose={closeAllPopups}
-          onSubmitAvatar={onSubmitAvatar}
+          onSubmitAvatar={handleAvatarSubmit}
         />
         <EditProfilePopup
           isOpen={isEditPopupOpen}
           onClose={closeAllPopups}
-          onUpdateUser={onSubmitUser}
+          onSubmitUser={handleUserInfoSubmit}
         />
-        <AddPlacePopup isOpen={isAddPopupOpen} onClose={closeAllPopups} />
+        <AddPlacePopup
+          isOpen={isAddPopupOpen}
+          onClose={closeAllPopups}
+          onNewPlaceSubmit={handleNewPlaceSubmit}
+        />
         <PopupConfirm isOpen={isConfirmPopupOpen} onClose={closeAllPopups} />
         <ImagePopup
-          selectedCard={selectedCard}
           isOpen={isImageViewPopupOpen}
           onClose={closeAllPopups}
+          selectedCard={selectedCard}
         />
       </div>
     </CurrentUserContext.Provider>

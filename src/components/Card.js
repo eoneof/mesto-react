@@ -8,6 +8,8 @@ export default function Card(props) {
   const isLiked = props.cardData.likes.some((liker) => liker._id === currentUser._id);
   const isOwner = props.cardData.owner._id === currentUser._id ? true : false;
 
+  const hiddenClassName = `${!isOwner ? 'hidden' : ''}`;
+
   function openImageView() {
     props.onCardThumbClick(props.cardData);
   }
@@ -32,11 +34,12 @@ export default function Card(props) {
         className='cards-grid__item card'
         data-card-id={props.cardData._id}>
         <button
-          className={`button card__delete-button ${!isOwner ? 'hidden' : ''}`}
+          className={`button card__delete-button ${hiddenClassName}`}
           type='button'
           name='delete-button'
           title='Удалить'
-          // onClick={openDeleteConfirmPopup}> // TODO confirmation popup
+          // TODO confirmation popup
+          // onClick={openDeleteConfirmPopup}>
           onClick={handleCardDelete}>
           Удалить
         </button>

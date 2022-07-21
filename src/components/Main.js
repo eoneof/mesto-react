@@ -9,7 +9,7 @@ import { CurrentUserContext } from './contexts/CurrentUserContext.js';
 export default function Main(props) {
   const currentUser = React.useContext(CurrentUserContext);
 
-  const hiddenClassNameToggle = `${!props.allDataIsLoaded ? 'hidden' : ''}`;
+  const hiddenClassName = `${!props.allDataIsLoaded ? 'hidden' : ''}`;
 
   return (
     <>
@@ -21,7 +21,7 @@ export default function Main(props) {
 
         {/* <!-- PROFILE --> */}
         <section
-          className={`profile ${hiddenClassNameToggle}`}
+          className={`profile ${hiddenClassName}`}
           data-user-id=''
           data-user-cohort=''>
           <div className='profile__container'>
@@ -30,7 +30,9 @@ export default function Main(props) {
               type='button'
               name='update-profile-photo-button'
               title='Изменить фотографию профиля'>
-              <button className='profile__photo-overlay' onClick={props.onClick}></button>
+              <button
+                className='profile__photo-overlay'
+                onClick={props.onUpdateAvatar}></button>
               <img
                 className='profile__photo'
                 alt='Фотография пользователя.'
@@ -64,10 +66,10 @@ export default function Main(props) {
 
         {/* <!-- CARDS WITH PHOTOS --> */}
         <section
-          className={`photos ${hiddenClassNameToggle}`}
+          className={`photos ${hiddenClassName}`}
           aria-label='Фотографии пользователя'>
           <ul className='cards-grid'>
-            {props.cards.map((card) => {
+            {props.cardsList.map((card) => {
               // clone Card child from App
               return React.cloneElement(props.cardComponent, {
                 key: card._id,

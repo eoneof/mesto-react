@@ -1,12 +1,10 @@
 import React from 'react';
-import { useRef } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 import PopupWithForm from './PopupWithForm.js';
 
 export default function EditProfilePopup(props) {
   const currentUser = React.useContext(CurrentUserContext);
   const [values, setValues] = React.useState({ name: '', about: '' });
-  const { nameInputRef, aboutInputRef } = useRef(null);
 
   function setInitialValues() {
     setValues(() => {
@@ -28,9 +26,9 @@ export default function EditProfilePopup(props) {
     });
   }
 
-  function handleSubmit(evt) {
+  function handleUserInfoSubmit(evt) {
     evt.preventDefault();
-    props.onUpdateUser(values);
+    props.onSubmitUser(values);
     props.onClose();
     setInitialValues();
   }
@@ -51,7 +49,7 @@ export default function EditProfilePopup(props) {
       submitButtonText='Сохранить'
       isOpen={props.isOpen}
       onClose={handleClose}
-      onSubmit={handleSubmit}>
+      onSubmit={handleUserInfoSubmit}>
       {/* children */}
       <fieldset className='form__fieldset'>
         <div className='form__input-container'>
@@ -64,7 +62,6 @@ export default function EditProfilePopup(props) {
             maxLength='40'
             placeholder='Как вас зовут?'
             onChange={handleChanges}
-            ref={nameInputRef}
             defaultValue={values.name}
             required
           />
@@ -80,7 +77,6 @@ export default function EditProfilePopup(props) {
             maxLength='200'
             placeholder='Напишите что-нибудь о себе'
             onChange={handleChanges}
-            ref={aboutInputRef}
             defaultValue={values.about}
             required
           />

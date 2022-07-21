@@ -1,9 +1,21 @@
 import React from 'react';
-import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
+import { useRef } from 'react';
+// import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 import PopupWithForm from './PopupWithForm.js';
 
 export default function AddPlacePopup(props) {
-  const currentUser = React.useContext(CurrentUserContext);
+  // const currentUser = React.useContext(CurrentUserContext);
+  const titleInputRef = useRef();
+  const linkInputRef = useRef();
+
+  function handleAddPlaceSubmit(evt) {
+    evt.preventDefault();
+    props.onNewPlaceSubmit({
+      name: titleInputRef.current.value,
+      link: linkInputRef.current.value,
+    });
+    props.onClose();
+  }
 
   return (
     <PopupWithForm
@@ -11,7 +23,8 @@ export default function AddPlacePopup(props) {
       popupType='add'
       submitButtonText='Сохранить'
       isOpen={props.isOpen}
-      onClose={props.onClose}>
+      onClose={props.onClose}
+      onSubmit={handleAddPlaceSubmit}>
       {/* children */}
       <fieldset className='form__fieldset'>
         <div className='form__input-container'>
@@ -23,6 +36,7 @@ export default function AddPlacePopup(props) {
             minLength='2'
             maxLength='30'
             placeholder='Название'
+            ref={titleInputRef}
             required
           />
           <span className='form__input-error-hint name-input-error'></span>
@@ -34,6 +48,7 @@ export default function AddPlacePopup(props) {
             name='link'
             type='url'
             placeholder='Ссылка на картинку'
+            ref={linkInputRef}
             required
           />
           <span className='form__input-error-hint about-input-error'></span>
