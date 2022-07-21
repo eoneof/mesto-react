@@ -1,8 +1,5 @@
 import React from 'react';
 
-import Api from '../utils/Api.js';
-import * as utils from '../utils/utils.js';
-import * as consts from '../utils/constants.js';
 import avatarPlaceHolderImage from '../images/avatar-placeholder.svg';
 import { CurrentUserContext } from './contexts/CurrentUserContext.js';
 

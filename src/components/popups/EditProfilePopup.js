@@ -26,7 +26,7 @@ export default function EditProfilePopup(props) {
     });
   }
 
-  function handleUserInfoSubmit(evt) {
+  function handleSubmit(evt) {
     evt.preventDefault();
     props.onSubmitUser(values);
     props.onClose();
@@ -49,7 +49,7 @@ export default function EditProfilePopup(props) {
       submitButtonText='Сохранить'
       isOpen={props.isOpen}
       onClose={handleClose}
-      onSubmit={handleUserInfoSubmit}>
+      onSubmit={handleSubmit}>
       {/* children */}
       <fieldset className='form__fieldset'>
         <div className='form__input-container'>
