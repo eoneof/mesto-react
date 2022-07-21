@@ -1,54 +1,24 @@
 import React from 'react';
 
-import Api from '../utils/Api.js';
-import * as utils from '../utils/utils.js';
-import * as consts from '../utils/constants.js';
 import avatarPlaceHolderImage from '../images/avatar-placeholder.svg';
+import { CurrentUserContext } from './contexts/CurrentUserContext.js';
 
 export default function Main(props) {
-  const [userID, setUserID] = React.useState('');
-  const [userName, setUserName] = React.useState('Имя Пользователя');
-  const [userDescription, setUserDescription] = React.useState('Описание');
-  const [userAvatar, setUserAvatar] = React.useState(avatarPlaceHolderImage);
-  const [cards, setCards] = React.useState([]);
+  const currentUser = React.useContext(CurrentUserContext);
 
-  // hide everything but header until data is fetched
-  const [dataIsLoaded, setDataIsLoaded] = React.useState(false);
-  const hiddenClassNameToggle = `${!dataIsLoaded ? 'hidden' : ''}`;
-
-  const api = new Api(consts.apiConfig);
-
-  function getAllData() {
-    Promise.all([api.getUser(), api.getAllCards()])
-      .then(([remoteUserData, remoteCardsData]) => {
-        setUserID(remoteUserData._id);
-        setUserName(remoteUserData.name);
-        setUserDescription(remoteUserData.about);
-        setUserAvatar(remoteUserData.avatar);
-        setCards(remoteCardsData);
-      })
-      .then(() => {
-        setDataIsLoaded(true);
-      })
-      .catch((err) => {
-        utils.requestErrorHandler(err);
-      });
-  }
-
-  React.useEffect(() => {
-    getAllData();
-  }, []);
+  const hiddenClassName = `${!props.allDataIsLoaded ? 'hidden' : ''}`;
 
   return (
     <>
       <main className='main'>
         {React.cloneElement(props.preloaderComponent, {
-          dataIsLoaded: dataIsLoaded,
+          // hide preloader
+          dataIsLoaded: props.allDataIsLoaded,
         })}
 
         {/* <!-- PROFILE --> */}
         <section
-          className={`profile ${hiddenClassNameToggle}`}
+          className={`profile ${hiddenClassName}`}
           data-user-id=''
           data-user-cohort=''>
           <div className='profile__container'>
@@ -63,13 +33,17 @@ export default function Main(props) {
               <img
                 className='profile__photo'
                 alt='Фотография пользователя.'
-                src={userAvatar}
+                src={
+                  props.allDataIsLoaded
+                    ? currentUser.avatar
+                    : avatarPlaceHolderImage // TODO move to CSS bg image
+                }
               />
             </div>
             <div className='profile__main'>
               <div className='profile__headings'>
                 <div className='profile__header'>
-                  <h1 className='profile__name'>{userName}</h1>
+                  <h1 className='profile__name'>{currentUser.name}</h1>
                   <button
                     className='button profile__edit-button'
                     type='button'
@@ -77,7 +51,7 @@ export default function Main(props) {
                     title='Редактировать профиль'
                     onClick={props.onEditProfile}></button>
                 </div>
-                <p className='profile__about'>{userDescription}</p>
+                <p className='profile__about'>{currentUser.about}</p>
               </div>
             </div>
           </div>
@@ -91,18 +65,19 @@ export default function Main(props) {
 
         {/* <!-- CARDS WITH PHOTOS --> */}
         <section
-          className={`photos ${hiddenClassNameToggle}`}
+          className={`photos ${hiddenClassName}`}
           aria-label='Фотографии пользователя'>
           <ul className='cards-grid'>
-            {cards.map((card) => {
+            {props.cardsList.map((card) => {
               // clone Card child from App
               return React.cloneElement(props.cardComponent, {
                 key: card._id,
-                userID: userID,
                 cardData: card,
                 onCardThumbClick: props.onCardThumbClick,
+                // from App.js
                 onDeleteButtonClick: props.onDeleteButtonClick,
-                dataIsLoaded: dataIsLoaded,
+                onCardLike: props.onCardLike,
+                dataIsLoaded: props.allDataIsLoaded,
               });
             })}
           </ul>

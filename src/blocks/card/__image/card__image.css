@@ -9,6 +9,7 @@
   transition: transform 0.3s ease;
   transform-origin: bottom;
   background-image: url("../../../images/card-image-placeholder.svg");
+  /* TODO hide bg image if image is loaded */
 }
 
 .card__image:hover {
