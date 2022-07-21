@@ -99,6 +99,17 @@ export default function App() {
       });
   }
 
+  function handleDeleteCard(card) {
+    api
+      .addCard(card)
+      .then((remoteCardsData) => {
+        setCardsList([remoteCardsData, ...cardsList]);
+      })
+      .catch((err) => {
+        utils.requestErrorHandler(err);
+      });
+  }
+
   function closeAllPopups() {
     setIsUpdatePopupOpen(false);
     setIsEditPopupOpen(false);
@@ -106,7 +117,7 @@ export default function App() {
     setIsImageViewPopupOpen(false);
     setIsConfirmPopupOpen(false);
 
-    setSelectedCard({ name: '', link: '' });
+    setSelectedCard({ name: '', link: '', _id: '' });
   }
 
   function openUpdateAvatarPopup() {
@@ -121,10 +132,9 @@ export default function App() {
     setIsAddPopoupOpen(true);
   }
 
-  // TODO confirmation popup
-  // function openConfirmDeletePopup() {
-  //   setIsConfirmPopupOpen(true);
-  // }
+  function openConfirmDeletePopup(cardData) {
+    setIsConfirmPopupOpen(true);
+  }
 
   function openImageViewPopup(cardData) {
     setIsImageViewPopupOpen(true);
@@ -150,10 +160,8 @@ export default function App() {
           cardComponent={<Card />}
           cardsList={cardsList}
           onCardLike={handleCardLike}
-          onCardDelete={handleCardDelete}
           onCardThumbClick={openImageViewPopup}
-          // TODO confirmation popup
-          // onDeleteButtonClick={openConfirmDeletePopup}
+          onCardDelete={openConfirmDeletePopup}
         />
         <Footer />
         <EditAvatarPopup
@@ -171,11 +179,16 @@ export default function App() {
           onClose={closeAllPopups}
           onNewPlaceSubmit={handleNewPlaceSubmit}
         />
-        <PopupConfirm isOpen={isConfirmPopupOpen} onClose={closeAllPopups} />
+        <PopupConfirm
+          selectedCard={selectedCard}
+          isOpen={isConfirmPopupOpen}
+          onClose={closeAllPopups}
+          onSubmit={handleCardDelete}
+        />
         <ImagePopup
+          selectedCard={selectedCard}
           isOpen={isImageViewPopupOpen}
           onClose={closeAllPopups}
-          selectedCard={selectedCard}
         />
       </div>
     </CurrentUserContext.Provider>
