@@ -12,7 +12,6 @@ export default function EditAvatarPopup(props) {
   }
 
   function handleClose() {
-    // TODO reset inputs
     props.onClose();
   }
 

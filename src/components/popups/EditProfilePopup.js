@@ -34,7 +34,6 @@ export default function EditProfilePopup(props) {
   }
 
   function handleClose() {
-    // TODO reset inputs
     props.onClose();
   }
 

@@ -50,6 +50,39 @@ export default function App() {
       });
   }
 
+  function handleAvatarSubmit(inputValue) {
+    api
+      .setAvatar(inputValue)
+      .then((remoteUserData) => {
+        setCurrentUser(remoteUserData);
+      })
+      .catch((err) => {
+        utils.requestErrorHandler(err);
+      });
+  }
+
+  function handleUserInfoSubmit(inputValues) {
+    api
+      .setUserInfo(inputValues)
+      .then((remoteUserData) => {
+        setCurrentUser(remoteUserData);
+      })
+      .catch((err) => {
+        utils.requestErrorHandler(err);
+      });
+  }
+
+  function handleNewPlaceSubmit(inputValues) {
+    api
+      .addCard(inputValues)
+      .then((remoteCardsData) => {
+        setCardsList([remoteCardsData, ...cardsList]);
+      })
+      .catch((err) => {
+        utils.requestErrorHandler(err);
+      });
+  }
+
   function handleCardLike(card) {
     const isLiked = card.likes.some((liker) => liker._id === currentUser._id);
 
@@ -70,39 +103,6 @@ export default function App() {
       })
       .then(() => {
         closeAllPopups();
-      });
-  }
-
-  function handleUserInfoSubmit(inputValues) {
-    api
-      .setUserInfo(inputValues)
-      .then((remoteUserData) => {
-        setCurrentUser(remoteUserData);
-      })
-      .catch((err) => {
-        utils.requestErrorHandler(err);
-      });
-  }
-
-  function handleAvatarSubmit(inputValue) {
-    api
-      .setAvatar(inputValue)
-      .then((remoteUserData) => {
-        setCurrentUser(remoteUserData);
-      })
-      .catch((err) => {
-        utils.requestErrorHandler(err);
-      });
-  }
-
-  function handleNewPlaceSubmit(inputValues) {
-    api
-      .addCard(inputValues)
-      .then((remoteCardsData) => {
-        setCardsList([remoteCardsData, ...cardsList]);
-      })
-      .catch((err) => {
-        utils.requestErrorHandler(err);
       });
   }
 
