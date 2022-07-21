@@ -5,9 +5,8 @@ export default function Card(props) {
   const currentUser = React.useContext(CurrentUserContext);
 
   const hasLikes = props.cardData.likes.length > 0;
-  const isLiked = props.cardData.likes.some(
-    (liker) => liker._id === currentUser._id,
-  );
+  const isLiked = props.cardData.likes.some((liker) => liker._id === currentUser._id);
+  const isOwner = props.cardData.owner._id === currentUser._id ? true : false;
 
   function openImageView() {
     props.onCardThumbClick(props.cardData);
@@ -33,7 +32,7 @@ export default function Card(props) {
         className='cards-grid__item card'
         data-card-id={props.cardData._id}>
         <button
-          className='button card__delete-button'
+          className={`button card__delete-button ${!isOwner ? 'hidden' : ''}`}
           type='button'
           name='delete-button'
           title='Удалить'
