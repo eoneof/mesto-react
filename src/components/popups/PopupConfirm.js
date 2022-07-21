@@ -2,10 +2,9 @@ import React from 'react';
 import PopupWithForm from './PopupWithForm.js';
 
 export default function PopupConfirm(props) {
-  console.log(props.selectedCard);
   function handleSubmit(evt) {
     evt.preventDefault();
-    props.onSubmit(props.selectedCard._id);
+    props.onSubmit(props.selectedCard);
   }
 
   return (

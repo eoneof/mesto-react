@@ -61,9 +61,16 @@ export default function App() {
   }
 
   function handleCardDelete(card) {
-    api.deleteCard(card._id).then((newCards) => {
-      setCardsList((newCards) => newCards.filter((item) => item._id !== card._id));
-    });
+    api
+      .deleteCard(card._id)
+      .then(() => {
+        setCardsList((newCardsList) =>
+          newCardsList.filter((item) => item._id !== card._id),
+        );
+      })
+      .then(() => {
+        closeAllPopups();
+      });
   }
 
   function handleUserInfoSubmit(inputValues) {
@@ -99,17 +106,6 @@ export default function App() {
       });
   }
 
-  function handleDeleteCard(card) {
-    api
-      .addCard(card)
-      .then((remoteCardsData) => {
-        setCardsList([remoteCardsData, ...cardsList]);
-      })
-      .catch((err) => {
-        utils.requestErrorHandler(err);
-      });
-  }
-
   function closeAllPopups() {
     setIsUpdatePopupOpen(false);
     setIsEditPopupOpen(false);
@@ -134,6 +130,7 @@ export default function App() {
 
   function openConfirmDeletePopup(cardData) {
     setIsConfirmPopupOpen(true);
+    setSelectedCard(cardData);
   }
 
   function openImageViewPopup(cardData) {
@@ -161,7 +158,7 @@ export default function App() {
           cardsList={cardsList}
           onCardLike={handleCardLike}
           onCardThumbClick={openImageViewPopup}
-          onCardDelete={openConfirmDeletePopup}
+          onDeleteButtonClick={openConfirmDeletePopup}
         />
         <Footer />
         <EditAvatarPopup

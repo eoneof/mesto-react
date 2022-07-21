@@ -5,7 +5,9 @@ export default function Card(props) {
   const currentUser = React.useContext(CurrentUserContext);
 
   const hasLikes = props.cardData.likes.length > 0;
-  const isLiked = props.cardData.likes.some((liker) => liker._id === currentUser._id);
+  const isLiked = props.cardData.likes.some(
+    (liker) => liker._id === currentUser._id,
+  );
   const isOwner = props.cardData.owner._id === currentUser._id ? true : false;
 
   const hiddenClassName = `${!isOwner ? 'hidden' : ''}`;
@@ -13,11 +15,6 @@ export default function Card(props) {
   function openImageView() {
     props.onCardThumbClick(props.cardData);
   }
-
-  // TODO confirmation popup
-  // function openDeleteConfirmPopup() {
-  //   props.onDeleteButtonClick();
-  // }
 
   function handleCardDelete() {
     props.onDeleteButtonClick(props.cardData);
@@ -38,8 +35,6 @@ export default function Card(props) {
           type='button'
           name='delete-button'
           title='Удалить'
-          // TODO confirmation popup
-          // onClick={openDeleteConfirmPopup}>
           onClick={handleCardDelete}>
           Удалить
         </button>

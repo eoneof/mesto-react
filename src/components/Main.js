@@ -34,7 +34,9 @@ export default function Main(props) {
                 className='profile__photo'
                 alt='Фотография пользователя.'
                 src={
-                  props.allDataIsLoaded ? currentUser.avatar : avatarPlaceHolderImage // TODO move to CSS bg image
+                  props.allDataIsLoaded
+                    ? currentUser.avatar
+                    : avatarPlaceHolderImage // TODO move to CSS bg image
                 }
               />
             </div>
@@ -73,8 +75,7 @@ export default function Main(props) {
                 cardData: card,
                 onCardThumbClick: props.onCardThumbClick,
                 // from App.js
-                // onDeleteButtonClick: props.onDeleteButtonClick, // TODO confirmation popup
-                onDeleteButtonClick: props.onCardDelete,
+                onDeleteButtonClick: props.onDeleteButtonClick,
                 onCardLike: props.onCardLike,
                 dataIsLoaded: props.allDataIsLoaded,
               });
