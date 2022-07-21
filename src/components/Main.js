@@ -9,16 +9,14 @@ import { CurrentUserContext } from './contexts/CurrentUserContext.js';
 export default function Main(props) {
   const currentUser = React.useContext(CurrentUserContext);
 
-  const hiddenClassNameToggle = `${!props.cardDataIsLoaded ? 'hidden' : ''}`;
-
-  const api = new Api(consts.apiConfig);
+  const hiddenClassNameToggle = `${!props.allDataIsLoaded ? 'hidden' : ''}`;
 
   return (
     <>
       <main className='main'>
         {React.cloneElement(props.preloaderComponent, {
           // hide preloader
-          dataIsLoaded: props.cardDataIsLoaded && props.userDataIsLoaded,
+          dataIsLoaded: props.allDataIsLoaded,
         })}
 
         {/* <!-- PROFILE --> */}
@@ -32,16 +30,12 @@ export default function Main(props) {
               type='button'
               name='update-profile-photo-button'
               title='Изменить фотографию профиля'>
-              <button
-                className='profile__photo-overlay'
-                onClick={props.onClick}></button>
+              <button className='profile__photo-overlay' onClick={props.onClick}></button>
               <img
                 className='profile__photo'
                 alt='Фотография пользователя.'
                 src={
-                  props.userDataIsLoaded
-                    ? currentUser.avatar
-                    : avatarPlaceHolderImage // TODO move to CSS bg image
+                  props.allDataIsLoaded ? currentUser.avatar : avatarPlaceHolderImage // TODO move to CSS bg image
                 }
               />
             </div>
@@ -83,7 +77,7 @@ export default function Main(props) {
                 // onDeleteButtonClick: props.onDeleteButtonClick, // TODO confirmation popup
                 onDeleteButtonClick: props.onCardDelete,
                 onCardLike: props.onCardLike,
-                dataIsLoaded: props.cardDataIsLoaded,
+                dataIsLoaded: props.allDataIsLoaded,
               });
             })}
           </ul>

@@ -37,7 +37,7 @@
     });
   }
 
-  getAllCards() {
+  getCardsList() {
     return fetch(`${this._server}/${this._cards}`, {
       method: 'GET',
       headers: this._headers,

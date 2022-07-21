@@ -16,11 +16,11 @@ import Api from '../utils/Api.js';
 import { CurrentUserContext } from './contexts/CurrentUserContext.js';
 
 export default function App() {
-  const [currentUser, setCurrentUser] = React.useState({});
   // hide everything but header until data is fetched
-  // TODO merge these two
-  const [cardDataIsLoaded, setCardDataIsLoaded] = React.useState(false);
-  const [userDataIsLoaded, setUserDataIsLoaded] = React.useState(false);
+  const [allDataIsLoaded, setAllDataIsLoaded] = React.useState(false);
+
+  const [currentUser, setCurrentUser] = React.useState({});
+  const [cards, setCards] = React.useState([]);
 
   const [isAddPopupOpen, setIsAddPopoupOpen] = React.useState(false);
   const [isEditPopupOpen, setIsEditPopupOpen] = React.useState(false);
@@ -28,9 +28,7 @@ export default function App() {
   const [isImageViewPopupOpen, setIsImageViewPopupOpen] = React.useState(false);
   const [isConfirmPopupOpen, setIsConfirmPopupOpen] = React.useState(false);
 
-  const [cards, setCards] = React.useState([]);
-  // hide everything but header until data is fetched
-
+  // pass to ImagePopup
   const [selectedCard, setSelectedCard] = React.useState({
     name: '',
     link: '',
@@ -38,28 +36,14 @@ export default function App() {
 
   const api = new Api(consts.apiConfig);
 
-  function getCadsData() {
-    api
-      .getAllCards()
-      .then((remoteCardsData) => {
+  function getAllData() {
+    Promise.all([api.getUserInfo(), api.getCardsList()])
+      .then(([remoteUserData, remoteCardsData]) => {
+        setCurrentUser(remoteUserData);
         setCards(remoteCardsData);
       })
       .then(() => {
-        setCardDataIsLoaded(true);
-      })
-      .catch((err) => {
-        utils.requestErrorHandler(err);
-      });
-  }
-
-  function getUserData() {
-    api
-      .getUserInfo()
-      .then((remoteUserData) => {
-        setCurrentUser(remoteUserData);
-      })
-      .then(() => {
-        setUserDataIsLoaded(true);
+        setAllDataIsLoaded(true);
       })
       .catch((err) => {
         utils.requestErrorHandler(err);
@@ -70,9 +54,7 @@ export default function App() {
     const isLiked = card.likes.some((liker) => liker._id === currentUser._id);
 
     api.toggleCardLike(card._id, isLiked).then((newCard) => {
-      setCards((state) =>
-        state.map((item) => (item._id === card._id ? newCard : item)),
-      );
+      setCards((state) => state.map((item) => (item._id === card._id ? newCard : item)));
     });
   }
 
@@ -105,8 +87,7 @@ export default function App() {
   }
 
   React.useEffect(() => {
-    getUserData();
-    getCadsData();
+    getAllData();
   }, []);
 
   function closeAllPopups() {
@@ -147,11 +128,10 @@ export default function App() {
         <Main
           cardComponent={<Card />}
           cards={cards}
-          cardDataIsLoaded={cardDataIsLoaded}
+          allDataIsLoaded={allDataIsLoaded}
           onCardLike={handleCardLike}
           onCardDelete={handleCardDelete}
           preloaderComponent={<Preloader />}
-          userDataIsLoaded={userDataIsLoaded}
           onClick={openUpdateAvatarPopup}
           onEditProfile={openEditProfilePopup}
           onAddCard={openNewCardPopup}
