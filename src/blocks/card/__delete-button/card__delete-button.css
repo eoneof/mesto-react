@@ -4,7 +4,7 @@
   /* ↑ увеличиваем кликабельную область кнопки */
   /* ↓ сохраняя размеры */
   background-size: 18px 19px;
-  background-image: url('../../../images/deleteButton.svg');
+  background-image: url("../../../images/deleteButton.svg");
   background-position: center;
   background-repeat: no-repeat;
   background-color: transparent;
