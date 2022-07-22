@@ -86,11 +86,16 @@ export default function App() {
   function handleCardLike(card) {
     const isLiked = card.likes.some((liker) => liker._id === currentUser._id);
 
-    api.toggleCardLike(card._id, isLiked).then((newCard) => {
-      setCardsList((state) =>
-        state.map((item) => (item._id === card._id ? newCard : item)),
-      );
-    });
+    api
+      .toggleCardLike(card._id, isLiked)
+      .then((newCard) => {
+        setCardsList((state) =>
+          state.map((item) => (item._id === card._id ? newCard : item)),
+        );
+      })
+      .catch((err) => {
+        utils.requestErrorHandler(err);
+      });
   }
 
   function handleCardDelete(card) {
@@ -103,6 +108,9 @@ export default function App() {
       })
       .then(() => {
         closeAllPopups();
+      })
+      .catch((err) => {
+        utils.requestErrorHandler(err);
       });
   }
 
