@@ -28,12 +28,15 @@ export default function Main(props) {
             title='Изменить фотографию профиля'>
             <button
               className='profile__photo-overlay'
-              onClick={props.onUpdateAvatar}></button>
+              onClick={props.onUpdateAvatar}
+            />
             <img
               className='profile__photo'
               alt='Фотография пользователя.'
               src={
-                props.allDataIsLoaded ? currentUser.avatar : avatarPlaceHolderImage // TODO move to CSS bg image
+                props.allDataIsLoaded
+                  ? currentUser.avatar
+                  : avatarPlaceHolderImage // TODO move to CSS bg image
               }
             />
           </div>
