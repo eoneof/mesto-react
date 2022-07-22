@@ -7,7 +7,6 @@ export default function EditAvatarPopup(props) {
   function handleSubmit(evt) {
     evt.preventDefault();
     props.onSubmitAvatar({ avatar: avatarRef.current.value });
-    props.onClose();
   }
 
   function handleClose() {

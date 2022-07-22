@@ -13,7 +13,6 @@ export default function AddPlacePopup(props) {
       name: titleInputRef.current.value,
       link: linkInputRef.current.value,
     });
-    props.onClose();
   }
 
   return (

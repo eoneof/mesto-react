@@ -56,6 +56,10 @@ export default function App() {
       .then((remoteUserData) => {
         setCurrentUser(remoteUserData);
       })
+      .then(() => {
+        setAllDataIsLoaded(true);
+        closeAllPopups();
+      })
       .catch((err) => {
         utils.requestErrorHandler(err);
       });
@@ -67,6 +71,10 @@ export default function App() {
       .then((remoteUserData) => {
         setCurrentUser(remoteUserData);
       })
+      .then(() => {
+        setAllDataIsLoaded(true);
+        closeAllPopups();
+      })
       .catch((err) => {
         utils.requestErrorHandler(err);
       });
@@ -77,6 +85,10 @@ export default function App() {
       .addCard(inputValues)
       .then((remoteCardsData) => {
         setCardsList([remoteCardsData, ...cardsList]);
+      })
+      .then(() => {
+        setAllDataIsLoaded(true);
+        closeAllPopups();
       })
       .catch((err) => {
         utils.requestErrorHandler(err);
