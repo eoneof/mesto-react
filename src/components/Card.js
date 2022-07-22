@@ -1,16 +1,14 @@
-import React from 'react';
+import { useContext } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
 export default function Card(props) {
-  const currentUser = React.useContext(CurrentUserContext);
+  const currentUser = useContext(CurrentUserContext);
 
   const isOwner = props.cardData.owner._id === currentUser._id ? true : false;
   const hiddenClassName = `${!isOwner ? 'hidden' : ''}`;
 
   const hasLikes = props.cardData.likes.length > 0;
-  const isLiked = props.cardData.likes.some(
-    (liker) => liker._id === currentUser._id,
-  );
+  const isLiked = props.cardData.likes.some((liker) => liker._id === currentUser._id);
 
   function openImageView() {
     props.onCardThumbClick(props.cardData);
@@ -60,9 +58,7 @@ export default function Card(props) {
             title='Нравится!'
             onClick={handleCardLike}></button>
           <span
-            className={`card__like-counter ${
-              hasLikes && 'card__like-counter_visible'
-            }`}>
+            className={`card__like-counter ${hasLikes && 'card__like-counter_visible'}`}>
             {props.cardData.likes.length}
           </span>
         </div>

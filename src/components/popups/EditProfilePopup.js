@@ -1,10 +1,10 @@
-import React from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
 import PopupWithForm from './PopupWithForm.js';
 
 export default function EditProfilePopup(props) {
-  const currentUser = React.useContext(CurrentUserContext);
-  const [values, setValues] = React.useState({ name: '', about: '' });
+  const currentUser = useContext(CurrentUserContext);
+  const [values, setValues] = useState({ name: '', about: '' });
 
   function setInitialValues() {
     setValues(() => {
@@ -37,7 +37,7 @@ export default function EditProfilePopup(props) {
     props.onClose();
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     setInitialValues();
   }, [currentUser]);
 

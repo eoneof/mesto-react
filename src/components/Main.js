@@ -1,17 +1,17 @@
-import React from 'react';
+import { useContext, cloneElement } from 'react';
 
 import avatarPlaceHolderImage from '../images/avatar-placeholder.svg';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
 export default function Main(props) {
-  const currentUser = React.useContext(CurrentUserContext);
+  const currentUser = useContext(CurrentUserContext);
 
   const hiddenClassName = `${!props.allDataIsLoaded ? 'hidden' : ''}`;
 
   return (
     <>
       <main className='main'>
-        {React.cloneElement(props.preloaderComponent, {
+        {cloneElement(props.preloaderComponent, {
           // hide preloader
           dataIsLoaded: props.allDataIsLoaded,
         })}
@@ -34,9 +34,7 @@ export default function Main(props) {
                 className='profile__photo'
                 alt='Фотография пользователя.'
                 src={
-                  props.allDataIsLoaded
-                    ? currentUser.avatar
-                    : avatarPlaceHolderImage // TODO move to CSS bg image
+                  props.allDataIsLoaded ? currentUser.avatar : avatarPlaceHolderImage // TODO move to CSS bg image
                 }
               />
             </div>
@@ -70,7 +68,7 @@ export default function Main(props) {
           <ul className='cards-grid'>
             {props.cardsList.map((card) => {
               // clone Card child from App
-              return React.cloneElement(props.cardComponent, {
+              return cloneElement(props.cardComponent, {
                 key: card._id,
                 cardData: card,
                 onCardThumbClick: props.onCardThumbClick,

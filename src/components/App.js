@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 
 import * as utils from '../utils/utils.js';
 import * as consts from '../utils/constants.js';
@@ -17,19 +17,19 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
 export default function App() {
   // show only header and spinner until data is fetched
-  const [allDataIsLoaded, setAllDataIsLoaded] = React.useState(false);
+  const [allDataIsLoaded, setAllDataIsLoaded] = useState(false);
 
-  const [currentUser, setCurrentUser] = React.useState({});
-  const [cardsList, setCardsList] = React.useState([]);
+  const [currentUser, setCurrentUser] = useState({});
+  const [cardsList, setCardsList] = useState([]);
 
-  const [isAddPopupOpen, setIsAddPopoupOpen] = React.useState(false);
-  const [isEditPopupOpen, setIsEditPopupOpen] = React.useState(false);
-  const [isUpdatePopupOpen, setIsUpdatePopupOpen] = React.useState(false);
-  const [isImageViewPopupOpen, setIsImageViewPopupOpen] = React.useState(false);
-  const [isConfirmPopupOpen, setIsConfirmPopupOpen] = React.useState(false);
+  const [isAddPopupOpen, setIsAddPopoupOpen] = useState(false);
+  const [isEditPopupOpen, setIsEditPopupOpen] = useState(false);
+  const [isUpdatePopupOpen, setIsUpdatePopupOpen] = useState(false);
+  const [isImageViewPopupOpen, setIsImageViewPopupOpen] = useState(false);
+  const [isConfirmPopupOpen, setIsConfirmPopupOpen] = useState(false);
 
   // pass to ImagePopup
-  const [selectedCard, setSelectedCard] = React.useState({
+  const [selectedCard, setSelectedCard] = useState({
     name: '',
     link: '',
   });
@@ -138,7 +138,7 @@ export default function App() {
     setSelectedCard(cardData);
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     getAllData();
   }, []);
 

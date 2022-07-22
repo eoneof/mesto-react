@@ -1,4 +1,3 @@
-import React from 'react';
 import PopupWithForm from './PopupWithForm.js';
 
 export default function PopupConfirm(props) {
