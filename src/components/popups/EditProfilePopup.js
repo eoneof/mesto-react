@@ -15,13 +15,6 @@ export default function EditProfilePopup(props) {
     });
   }
 
-  function resetValues() {
-    return {
-      name: '',
-      about: '',
-    };
-  }
-
   function handleChanges(evt) {
     // extract target input's attributes
     const { name, value } = evt.target;
@@ -44,7 +37,7 @@ export default function EditProfilePopup(props) {
   }
 
   useEffect(() => {
-    props.isOpen ? setInitialValues() : resetValues();
+    props.isOpen && setInitialValues();
   }, [currentUser, props.isOpen]);
 
   return (
