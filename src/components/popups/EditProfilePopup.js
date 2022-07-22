@@ -15,6 +15,13 @@ export default function EditProfilePopup(props) {
     });
   }
 
+  function resetValues() {
+    return {
+      name: '',
+      about: '',
+    };
+  }
+
   function handleChanges(evt) {
     // extract target input's attributes
     const { name, value } = evt.target;
@@ -37,8 +44,8 @@ export default function EditProfilePopup(props) {
   }
 
   useEffect(() => {
-    setInitialValues();
-  }, [currentUser]);
+    props.isOpen ? setInitialValues() : resetValues();
+  }, [currentUser, props.isOpen]);
 
   return (
     <PopupWithForm
@@ -60,7 +67,7 @@ export default function EditProfilePopup(props) {
             maxLength='40'
             placeholder='Как вас зовут?'
             onChange={handleChanges}
-            defaultValue={values.name}
+            value={values.name}
             required
           />
           <span className='form__input-error-hint name-input-error'></span>
@@ -75,7 +82,7 @@ export default function EditProfilePopup(props) {
             maxLength='200'
             placeholder='Напишите что-нибудь о себе'
             onChange={handleChanges}
-            defaultValue={values.about}
+            value={values.about}
             required
           />
           <span className='form__input-error-hint link-input-error'></span>
