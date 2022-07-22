@@ -13,7 +13,7 @@ import ImagePopup from './popups/ImagePopup.js';
 import PopupConfirm from './popups/PopupConfirm.js';
 import Card from './Card.js';
 import Api from '../utils/Api.js';
-import { CurrentUserContext } from './contexts/CurrentUserContext.js';
+import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
 export default function App() {
   // show only header and spinner until data is fetched
