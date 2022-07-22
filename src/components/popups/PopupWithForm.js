@@ -13,7 +13,6 @@ export default function PopupWithForm(props) {
           Закрыть
         </button>
         <form
-          noValidate
           className='form'
           id={props.popupType}
           name={props.popupType}
