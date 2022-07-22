@@ -1,10 +1,10 @@
-import React from 'react';
-import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
+import { useContext, useState, useEffect } from 'react';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
 import PopupWithForm from './PopupWithForm.js';
 
 export default function EditProfilePopup(props) {
-  const currentUser = React.useContext(CurrentUserContext);
-  const [values, setValues] = React.useState({ name: '', about: '' });
+  const currentUser = useContext(CurrentUserContext);
+  const [values, setValues] = useState({ name: '', about: '' });
 
   function setInitialValues() {
     setValues(() => {
@@ -13,6 +13,13 @@ export default function EditProfilePopup(props) {
         about: currentUser.about,
       };
     });
+  }
+
+  function resetValues() {
+    return {
+      name: '',
+      about: '',
+    };
   }
 
   function handleChanges(evt) {
@@ -29,7 +36,6 @@ export default function EditProfilePopup(props) {
   function handleSubmit(evt) {
     evt.preventDefault();
     props.onSubmitUser(values);
-    props.onClose();
     setInitialValues();
   }
 
@@ -37,9 +43,9 @@ export default function EditProfilePopup(props) {
     props.onClose();
   }
 
-  React.useEffect(() => {
-    setInitialValues();
-  }, [currentUser]);
+  useEffect(() => {
+    props.isOpen ? setInitialValues() : resetValues();
+  }, [currentUser, props.isOpen]);
 
   return (
     <PopupWithForm
@@ -61,7 +67,7 @@ export default function EditProfilePopup(props) {
             maxLength='40'
             placeholder='Как вас зовут?'
             onChange={handleChanges}
-            defaultValue={values.name}
+            value={values.name}
             required
           />
           <span className='form__input-error-hint name-input-error'></span>
@@ -76,7 +82,7 @@ export default function EditProfilePopup(props) {
             maxLength='200'
             placeholder='Напишите что-нибудь о себе'
             onChange={handleChanges}
-            defaultValue={values.about}
+            value={values.about}
             required
           />
           <span className='form__input-error-hint link-input-error'></span>

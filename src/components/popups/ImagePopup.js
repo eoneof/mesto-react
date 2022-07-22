@@ -1,18 +1,13 @@
-import React from 'react';
-
 export default function ImagePopup(props) {
   const popupType = 'view';
 
   const cardHasData = () => {
-    return (props.selectedCard.link && props.selectedCard.link) ===
-      ('' && undefined)
+    return (props.selectedCard.link && props.selectedCard.link) === ('' && undefined)
       ? false
       : true;
   };
 
-  const openedClassName = `${
-    cardHasData() && props.isOpen ? 'popup_opened' : ''
-  }`;
+  const openedClassName = `${cardHasData() && props.isOpen ? 'popup_opened' : ''}`;
 
   return (
     <section className={`popup popup_type_${popupType} ${openedClassName}`}>
@@ -31,9 +26,7 @@ export default function ImagePopup(props) {
             src={props.selectedCard.link}
             alt={props.selectedCard.name}
           />
-          <figcaption className='preview__caption'>
-            {props.selectedCard.name}
-          </figcaption>
+          <figcaption className='preview__caption'>{props.selectedCard.name}</figcaption>
         </figure>
       </div>
       <div
