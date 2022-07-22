@@ -24,7 +24,6 @@ export default function Card(props) {
 
   return (
     <li
-      key={props.key}
       className='cards-grid__item card'
       data-card-id={props.cardData._id}>
       <button
