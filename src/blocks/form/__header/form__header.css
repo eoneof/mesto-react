@@ -17,7 +17,6 @@
 
 @media (max-width: 450px) {
   .form__header {
-    margin: 0 0 68px 0;
     font-size: 18px;
     line-height: 22px;
   }

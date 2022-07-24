@@ -17,14 +17,15 @@
   opacity: 0.8;
 }
 
-@media (max-width: 375px) {
+@media (max-width: 450px) {
   .form__submit-button {
-    max-width: 238px;
-    height: 46px;
-    font-style: normal;
-    font-weight: normal;
     font-size: 14px;
     line-height: 1.214;
-    text-align: center;
+  }
+}
+
+@media (max-width: 320px) {
+  .form__submit-button {
+    line-height: 1.214;
   }
 }

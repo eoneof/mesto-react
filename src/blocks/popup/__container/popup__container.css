@@ -4,4 +4,6 @@
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
+  margin: auto;
+  /* width: min(95%, 430px); */
 }
