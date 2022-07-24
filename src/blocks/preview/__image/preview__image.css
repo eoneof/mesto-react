@@ -1,10 +1,7 @@
 ﻿.preview__image {
-  min-width: 282px;
-  max-width: 75vw;
-  max-height: 75vh;
+  width: max(300px, 75vw);
   object-position: center;
   object-fit: contain;
-  background-image: url("../../../images/card-image-placeholder.svg");
   background-repeat: no-repeat;
   background-position: center;
   background-color: #000;
