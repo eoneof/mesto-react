@@ -5,7 +5,6 @@ export default function Preloader(props) {
     <>
       {/* <div className={`preloader ${hiddenClassName}`}> */}
       <div className='preloader'>
-        {/* <div className='spinner'></div> */}
         <section className='preloader__profile'>
           <div className='preloader__profile-container'>
             <div className='preloader__photo-container'>
@@ -23,6 +22,17 @@ export default function Preloader(props) {
           </div>
           <div className='preloader__button preloader__profile-add-button shimmer animate'></div>
         </section>
+        <section className='preloader__cards'>
+          <ul className='preloader__card-list'>
+            <li className='preloader__card preloader__cards-grid-item shimmer animate'></li>
+            <li className='preloader__card preloader__cards-grid-item shimmer animate'></li>
+            <li className='preloader__card preloader__cards-grid-item shimmer animate'></li>
+            <li className='preloader__card preloader__cards-grid-item shimmer animate'></li>
+            <li className='preloader__card preloader__cards-grid-item shimmer animate'></li>
+            <li className='preloader__card preloader__cards-grid-item shimmer animate'></li>
+          </ul>
+        </section>
+        <div className='spinner'></div>
       </div>
     </>
   );

@@ -24,7 +24,10 @@ export default function Main(props) {
             className='profile__photo-container'
             name='update-profile-photo-button'
             title='Изменить фотографию профиля'>
-            <button className='profile__photo-overlay' onClick={props.onUpdateAvatar} />
+            <button
+              className='profile__photo-overlay'
+              onClick={props.onUpdateAvatar}
+            />
             <img
               className='profile__photo'
               alt='Фотография пользователя.'
@@ -34,11 +37,12 @@ export default function Main(props) {
           <div className='profile__main'>
             <div className='profile__headings'>
               <div className='profile__header'>
-                <h1 className='profile__name shimmer animate'>
+                <h1 className='profile__name'>
+                  {currentUser.name}
                   {/* TODO change class instead of preloader */}
-                  {props.allDataIsLoaded
+                  {/* {props.allDataIsLoaded
                     ? currentUser.name
-                    : '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'}
+                    : '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'} */}
                 </h1>
                 <button
                   className='button profile__edit-button'
