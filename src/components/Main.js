@@ -1,6 +1,5 @@
 import { useContext, cloneElement } from 'react';
 
-import avatarPlaceHolderImage from '../images/avatar-placeholder.svg';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
 export default function Main(props) {
@@ -23,13 +22,9 @@ export default function Main(props) {
         <div className='profile__container'>
           <div
             className='profile__photo-container'
-            type='button'
             name='update-profile-photo-button'
             title='Изменить фотографию профиля'>
-            <button
-              className='profile__photo-overlay'
-              onClick={props.onUpdateAvatar}
-            />
+            <button className='profile__photo-overlay' onClick={props.onUpdateAvatar} />
             <img
               className='profile__photo'
               alt='Фотография пользователя.'
@@ -39,7 +34,12 @@ export default function Main(props) {
           <div className='profile__main'>
             <div className='profile__headings'>
               <div className='profile__header'>
-                <h1 className='profile__name'>{currentUser.name}</h1>
+                <h1 className='profile__name shimmer animate'>
+                  {/* TODO change class instead of preloader */}
+                  {props.allDataIsLoaded
+                    ? currentUser.name
+                    : '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'}
+                </h1>
                 <button
                   className='button profile__edit-button'
                   type='button'

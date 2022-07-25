@@ -1,14 +1,258 @@
 ﻿.preloader {
+  /* opacity: 0.8; */
   width: 100%;
+  height: 100%;
   min-height: 450px;
   position: absolute;
-  top: 100px;
+  top: 120px;
   left: 0;
   flex-direction: column;
   align-items: center;
-  padding: 76px 0;
+  padding: 40px 27px 0;
   box-sizing: border-box;
   background-color: #000;
   display: flex;
   z-index: 2;
+}
+
+@media (max-width: 768px) {
+  .preloader {
+    top: 85px;
+  }
+}
+
+/* PROFILE */
+.preloader__profile {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .preloader__profile {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+  }
+}
+
+.preloader__profile-container {
+  display: flex;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .preloader__profile-container {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+}
+
+.preloader__photo-container {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .preloader__photo-container {
+    flex-direction: column;
+  }
+}
+
+.preloader__photo {
+  width: 120px;
+  min-height: 120px;
+  margin: 0 30px 0 0;
+  border-radius: 50%;
+  object-position: center;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .preloader__photo {
+    margin: 0 0 26px 0;
+  }
+}
+
+.preloader__profile-main {
+  width: 100%;
+  max-width: 1280px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .preloader__profile-main {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.preloader__profile-headings {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .preloader__profile-headings {
+    align-items: center;
+  }
+}
+
+@media (max-width: 320px) {
+  .preloader__profile-headings {
+    align-items: center;
+  }
+}
+
+.preloader__profile-header {
+  margin: 22px 0 0 0;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+@media (max-width: 375px) {
+  .preloader__profile-header {
+    margin: 0 0 9px 0;
+  }
+}
+
+.preloader__profile-name {
+  margin: 0 19px 0 0;
+  width: 250px;
+  height: 48px;
+  max-width: 405px;
+}
+
+@media (max-width: 768px) {
+  .preloader__profile-name {
+    max-width: 350px;
+    height: 30px;
+    margin: 0 0 15px 0;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+@media (max-width: 530px) {
+  .preloader__profile-name {
+    max-width: 270px;
+  }
+}
+
+@media (max-width: 375px) {
+  .preloader__profile-name {
+    margin: 0;
+    max-width: 191px;
+  }
+}
+
+.preloader__button {
+  padding: 0;
+  border: 1px solid #fff;
+  box-sizing: border-box;
+}
+
+.preloader__profile-edit-button {
+  width: 24px;
+  height: 24px;
+  background-image: none;
+  margin: 6px 30px 0 0;
+  /* background-color: #ffffff22; */
+  outline: 1px solid #fff;
+}
+
+@media (max-width: 768px) {
+  .preloader__profile-edit-button {
+    margin: 0 0 4px 0;
+    position: absolute;
+    right: -16px;
+    transform: translate(100%, 0);
+  }
+}
+
+@media (max-width: 375px) {
+  .preloader__profile-edit-button {
+    margin: 1px 0 0 0;
+    right: -10px;
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    transform: translate(100%, 0);
+  }
+}
+
+.preloader__profile-add-button {
+  width: 150px;
+  height: 50px;
+  border: none;
+  background-color: #ffffff22;
+  border-radius: 2px;
+}
+
+@media (max-width: 768px) {
+  .preloader__profile-add-button {
+    width: 100%;
+    margin-top: 32px;
+    max-width: 350px;
+  }
+}
+
+@media (max-width: 375px) {
+  .preloader__profile-add-button {
+    max-width: 282px;
+  }
+}
+
+.preloader__profile-about {
+  margin: 8px 0 0 0;
+  color: #fff;
+  max-width: 150px;
+  height: 22px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .preloader__profile-about {
+    margin: 0 auto;
+    width: 30%;
+  }
+}
+
+.shimmer {
+  background-color: #ffffff22;
+  color: #ffffff22;
+  background-image: none;
+  outline: none;
+  border: none;
+  opacity: 0.3;
+}
+
+.animate {
+  animation: shimmer 2s infinite linear;
+  background: linear-gradient(to right, #ffffff 16%, #abaaaa 25%, #ffffff 40%);
+  background-size: 880px 100%;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -880px 0;
+  }
+  100% {
+    background-position: 880px 0;
+  }
 }
