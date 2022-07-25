@@ -3,8 +3,8 @@ export default function Preloader(props) {
 
   return (
     <>
-      {/* <div className={`preloader ${hiddenClassName}`}> */}
-      <div className='preloader'>
+      <div className={`preloader ${hiddenClassName}`}>
+        {/* <div className='preloader'> */}
         <section className='preloader__profile'>
           <div className='preloader__profile-container'>
             <div className='preloader__photo-container'>
@@ -23,6 +23,7 @@ export default function Preloader(props) {
           <div className='preloader__button preloader__profile-add-button shimmer animate'></div>
         </section>
         <section className='preloader__cards'>
+          {/* TODO fix grid on lower widths */}
           <ul className='preloader__card-list'>
             <li className='preloader__card preloader__cards-grid-item shimmer animate'></li>
             <li className='preloader__card preloader__cards-grid-item shimmer animate'></li>
